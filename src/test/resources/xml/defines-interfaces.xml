@@ -1,0 +1,4 @@
+<defines>
+	<tag name="foo" type="net.schst.XJConf.Examples.MyClass"/>
+	<tag name="bar" type="net.schst.XJConf.Examples.MyClass"/>
+</defines>

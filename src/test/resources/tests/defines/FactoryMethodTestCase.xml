@@ -1,0 +1,12 @@
+<defines>
+	<tag name="foo" type="net.schst.XJConf.tests.helpers.FactoryMethodClass">
+    <factoryMethod name="createInstance"/>
+  </tag>
+
+	<tag name="bar" type="net.schst.XJConf.tests.helpers.FactoryMethodClass">
+    <factoryMethod name="createInstanceWithParam">
+      <cdata/>
+    </factoryMethod>
+  </tag>
+
+</defines>

@@ -1,0 +1,12 @@
+<defines>
+	<!--
+	<tag name="int" primitive="int" keyAttribute="id"/>
+	<tag name="bool" primitive="boolean" keyAttribute="id"/>
+	-->
+	
+	<tag name="color" type="net.schst.XJConf.Examples.ColorPrimitives">
+		<attribute name="red" type="int"/>
+		<attribute name="green" type="int"/>
+		<attribute name="blue" type="int"/>
+	</tag>	
+</defines>

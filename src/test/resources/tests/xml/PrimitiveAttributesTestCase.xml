@@ -1,0 +1,3 @@
+<configuration>
+	<container booleanValue="true" intValue="15" longValue="42" floatValue="12.34" shortValue="-34" doubleValue="12.34"/>
+</configuration>

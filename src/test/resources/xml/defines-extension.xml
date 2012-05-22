@@ -1,0 +1,8 @@
+<defines>
+	<tag name="map" type="java.util.HashMap"/>
+	<tag name="number" type="java.lang.Double" keyAttribute="name"/>
+	<tag name="int" type="java.lang.Integer" key="__none"/>
+	<tag name="double" type="java.lang.Double" key="__none"/>
+
+	<tag name="array" type="java.util.ArrayList"/>
+</defines>

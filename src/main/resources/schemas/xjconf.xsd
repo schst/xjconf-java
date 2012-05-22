@@ -1,0 +1,94 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- 
+    defines
+  -->
+  <xs:element name="defines">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="namespace" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="tag" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--
+    namespace
+  -->
+  <xs:element name="namespace">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="tag" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="uri" type="xs:anyURI" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!--
+    tag
+  -->
+  <xs:element name="tag">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="constructor" minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="cdata" minOccurs="0" maxOccurs="1"/>
+        <xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="type" type="xs:string" use="required"/>
+      <xs:attribute name="key" type="xs:string" use="optional"/>
+      <xs:attribute name="keyAttribute" type="xs:string" use="optional"/>
+      <xs:attribute name="setter" type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--
+    attribute
+  -->
+  <xs:element name="attribute">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="type" type="xs:string" use="required"/>
+      <xs:attribute name="required" type="xs:boolean" use="optional"/>
+      <xs:attribute name="setter" type="xs:string" use="optional"/>
+      <xs:attribute name="default" type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--
+    cdata
+  -->
+  <xs:element name="cdata">
+    <xs:complexType>
+      <xs:attribute name="type" type="xs:string" use="required"/>
+      <xs:attribute name="setter" type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <!--
+    Constructor
+  -->
+  <xs:element name="constructor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:group ref="any-value" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!--
+    Group to represent any value
+  -->
+  <xs:group name="any-value">
+    <xs:choice>
+	    <xs:element ref="cdata"/>
+	    <xs:element name="child">
+        <xs:complexType>
+          <xs:attribute type="xs:string" name="name"/>
+        </xs:complexType>
+      </xs:element>
+	    <xs:element ref="attribute"/>
+    </xs:choice>
+  </xs:group>
+  
+</xs:schema>

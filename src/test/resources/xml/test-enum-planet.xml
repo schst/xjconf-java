@@ -1,0 +1,10 @@
+<xj:configuration 
+    xmlns:xj="http://www.schst.net/XJConf">
+	
+	<planets>	
+	    <planetinfo planet="EARTH" />
+	    <planetinfo planet="MARS" />
+	    <planetinfo planet="VENUS" />
+	</planets>
+	
+</xj:configuration>

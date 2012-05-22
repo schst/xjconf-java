@@ -1,0 +1,7 @@
+<defines>
+	<tag name="color" type="net.schst.XJConf.Examples.Color" keyAttribute="id">
+		<attribute name="red" type="java.lang.Integer" required="true"/>
+		<attribute name="green" type="java.lang.Integer" required="true"/>
+		<attribute name="blue" type="java.lang.Integer" required="true"/>
+	</tag>
+</defines>

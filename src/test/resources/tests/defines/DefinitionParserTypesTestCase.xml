@@ -1,0 +1,7 @@
+<defines>
+	<tag name="string" type="java.lang.String"/>
+	<tag name="boolean" type="java.lang.Boolean"/>
+  
+	<tag name="undefined"/>
+	<tag name="int" primitive="int"/>
+</defines>

@@ -1,0 +1,10 @@
+<defines>
+  <!-- extend a simple tag -->
+	<tag name="MyInt" type="java.lang.Integer"/>
+	<tag name="MySecondInt" extends="MyInt"/>
+
+
+  <!-- extend a tag that has a setter defined -->
+	<tag name="TagWithSetter" type="java.lang.Integer" setter="addObject"/>
+	<tag name="ExtendedTagWithSetter" extends="TagWithSetter"/>
+</defines>

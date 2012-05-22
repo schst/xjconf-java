@@ -1,0 +1,24 @@
+<xj:configuration
+	xmlns:xj="http://www.schst.net/XJConf"
+	xmlns:math="http://www.schst.net/XJConf/Math">
+	<map>
+		<number name="foo">
+			<math:add>
+				<int>13</int><int>34</int>
+			</math:add>
+		</number>
+		<number name="bar">
+			<math:add>
+				<int>104</int><double>34.5</double>
+			</math:add>
+		</number>
+	</map>
+	<array>
+		<math:add>
+			<int>104</int><double>34.5</double>
+		</math:add>
+		<math:add>
+			<int>123</int><double>34.5321</double><double>-4</double>
+		</math:add>
+	</array>
+</xj:configuration>

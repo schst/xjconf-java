@@ -1,0 +1,11 @@
+<defines>
+	<tag name="zahl" type="java.lang.Integer" keyAttribute="name"/>
+
+	<tag name="colors" type="java.util.ArrayList"/>
+	<tag name="color" type="net.schst.XJConf.Examples.Color" key="__none">
+		<attribute name="red" type="java.lang.Integer"/>
+		<attribute name="green" type="java.lang.Integer"/>
+		<attribute name="blue" type="java.lang.Integer"/>
+	</tag>
+
+</defines>

@@ -1,0 +1,31 @@
+<defines>
+	<tag name="zahl" type="java.lang.Integer"/>
+	<tag name="foo" type="java.lang.String"/>
+	<tag name="schst" type="net.schst.XJConf.Examples.UpperString"/>
+
+	<tag name="complex" type="net.schst.XJConf.Examples.Complex">
+		<attribute name="color" type="java.lang.String"/>
+		<attribute name="size" type="java.lang.Integer"/>
+	</tag>
+
+	<tag name="color" type="net.schst.XJConf.Examples.Color">
+		<attribute name="red" type="java.lang.Integer"/>
+		<attribute name="green" type="java.lang.Integer"/>
+		<attribute name="blue" type="java.lang.Integer"/>
+
+		<attribute name="title" type="java.lang.String" setter="setColorTitle"/>
+	</tag>
+
+	<tag name="complex2" type="net.schst.XJConf.Examples.Complex">
+		<attribute name="size" type="java.lang.Integer"/>
+	</tag>
+
+	<tag name="complex3" type="net.schst.XJConf.Examples.Complex">
+		<attribute name="size" type="java.lang.Integer" default="200"/>
+	</tag>
+
+	<tag name="array" type="java.util.ArrayList"/>
+
+	<tag name="item" type="java.lang.String" key="__none"/>
+
+</defines>

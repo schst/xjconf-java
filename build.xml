@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="all" name="xjconf">
+
+  <property name="buildpropfile" value="${basedir}/build.properties"/>
+  <property name="versionpropfile" value="${basedir}/version.properties"/>
+  <property file="${buildpropfile}"/>
+  <property file="${versionpropfile}"/>
+  <property name="build.compiler" value="modern"/>
+  <property name="builddir" value="${basedir}/build"/>
+  <property name="distdir" value="${basedir}/dist"/>
+  <property name="srcdir" value="${basedir}/src/main/java"/>
+  <property name="jarfile" value="${distdir}/xjconf-${version.number}.jar"/>
+
+  <target name="init">
+    <echo message="Feel free to set properties in file '${buildpropfile}'."/>
+    <mkdir dir="${distdir}"/>
+    <mkdir dir="${builddir}"/>
+  </target>
+
+  <target depends="init" name="compile">
+    <echo message="Compiling sources using compiler '${build.compiler}'."/>
+    <javac debug="true" deprecation="true" destdir="${builddir}" srcdir="${srcdir}"/>
+  </target>
+
+  <target depends="clean, init, compile" name="clean-compile"/>
+
+  <target depends="clean-compile" name="jar">
+    <echo message="Don't forget to set property 'version.number' in file '${versionpropfile}'."/>
+    <jar compress="true" jarfile="${jarfile}">
+	  <fileset dir="${builddir}">
+        <include name="**/*.class"/>
+        <exclude name="net/schst/XJConf/Examples/**"/>
+        <exclude name="**/*.java"/>
+      </fileset>
+	  <fileset dir="${basedir}">
+        <include name="LICENSE"/>
+      </fileset>	  
+    </jar>
+  </target>
+
+  <target name="clean">
+    <delete dir="${builddir}"/>
+    <delete dir="${distdir}"/>
+  </target>
+
+  <target name="all">
+    <echo message="You called the default target 'all', which in turn calls 'jar'."/>
+    <echo message="Other possible targets are:"/>
+    <echo message="clean"/>
+    <echo message="compile"/>
+    <echo message="clean-compile"/>
+    <antcall target="jar"/>
+  </target>
+
+</project>

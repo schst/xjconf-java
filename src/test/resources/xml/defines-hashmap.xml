@@ -1,0 +1,6 @@
+<defines>
+	<tag name="properties" type="java.util.Properties"/>
+	<tag name="map" type="java.util.HashMap"/>
+	<tag name="prop" type="java.lang.String" keyAttribute="name"/>
+	<tag name="number" type="java.lang.Integer" keyAttribute="name"/>
+</defines>

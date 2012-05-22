@@ -1,0 +1,7 @@
+<configuration xmlns:test="http://schst.net/test"
+               xmlns:bar="http://schst.net/bar">
+
+	<test:foo name="zahl">12</test:foo>
+	<bar:foo name="text">Now the tag 'foo' is used as a string</bar:foo>
+
+</configuration>

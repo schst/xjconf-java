@@ -1,0 +1,6 @@
+<defines>
+    <tag name="planets" type="java.util.ArrayList"/>
+	<tag name="planetinfo" type="net.schst.XJConf.Examples.PlanetInfo" key="__none">
+		<attribute name="planet" type="net.schst.XJConf.Examples.Planet"/>
+	</tag>
+</defines>

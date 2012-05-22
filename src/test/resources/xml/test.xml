@@ -1,0 +1,18 @@
+<configuration>
+
+	<array>
+		<item>foo</item>
+		<item>bar</item>
+	</array>
+	<foo>tomato</foo>
+	<zahl>124</zahl>
+	
+	<schst>tomato</schst>
+	<complex color="red" size="3">This is a string.</complex>
+
+	<complex3 color="red"/>
+
+	<complex2 size="3">
+		<color red="0" green="20" blue="80" title="A dark blue">dark-blue</color>
+	</complex2>
+</configuration>

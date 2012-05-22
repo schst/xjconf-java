@@ -1,0 +1,4 @@
+<defines>
+	<tag name="list" type="java.util.ArrayList"/>
+	<tag name="entry" type="java.lang.String" key="__none"/>
+</defines>

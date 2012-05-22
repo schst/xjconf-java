@@ -1,0 +1,5 @@
+# Copy this file to build.properties and set
+# your local build prefs.
+
+# Which compiler to use: jikes, modern, ...
+#build.compiler=jikes

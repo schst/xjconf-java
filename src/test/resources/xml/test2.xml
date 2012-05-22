@@ -1,0 +1,11 @@
+<configuration>
+	<zahl name="one">452</zahl>
+	<zahl name="two">1452</zahl>
+	<zahl name="three">13</zahl>
+
+	<colors>
+		<color red="0" green="0" blue="255">blue</color>
+		<color red="255" green="0" blue="255">purple</color>
+	</colors>
+
+</configuration>

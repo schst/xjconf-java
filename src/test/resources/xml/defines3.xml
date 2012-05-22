@@ -1,0 +1,8 @@
+<defines>
+	<namespace uri="http://schst.net/test">
+		<tag name="foo" type="java.lang.Integer" keyAttribute="name"/>
+	</namespace>
+	<namespace uri="http://schst.net/bar">
+		<tag name="foo" type="java.lang.String" keyAttribute="name"/>
+	</namespace>
+</defines>

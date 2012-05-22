@@ -1,0 +1,6 @@
+<defines>
+	<tag name="complex" type="net.schst.XJConf.Examples.Complex">
+		<cdata type="java.lang.Integer" setter="setSize"/>
+		<attribute name="color" type="java.lang.String"/>
+	</tag>
+</defines>

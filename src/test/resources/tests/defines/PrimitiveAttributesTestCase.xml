@@ -1,0 +1,10 @@
+<defines>
+	<tag name="container" type="net.schst.XJConf.tests.helpers.PrimitivesContainer">
+    <attribute name="booleanValue" type="boolean"/>
+    <attribute name="intValue" type="int"/>
+    <attribute name="longValue" type="long"/>
+    <attribute name="floatValue" type="float"/>
+    <attribute name="doubleValue" type="double"/>
+    <attribute name="shortValue" type="short"/>
+  </tag>
+</defines>

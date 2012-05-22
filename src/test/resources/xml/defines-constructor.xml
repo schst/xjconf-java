@@ -1,0 +1,29 @@
+<defines>
+	<tag name="color" type="net.schst.XJConf.Examples.ConstructorColor" keyAttribute="id">
+		<constructor>
+			<attribute name="red" type="java.lang.Integer"/>
+			<attribute name="green" type="java.lang.Integer"/>
+			<attribute name="blue" type="java.lang.Integer"/>
+		</constructor>
+	</tag>
+
+	<tag name="color2" type="net.schst.XJConf.Examples.ConstructorColor">
+		<constructor>
+			<attribute name="red" type="java.lang.Integer"/>
+			<attribute name="green" type="java.lang.Integer"/>
+			<cdata type="java.lang.Integer"/>
+		</constructor>
+	</tag>
+
+	<tag name="color3" type="net.schst.XJConf.Examples.ConstructorColor">
+		<constructor>
+			<child name="red"/>
+			<child name="green"/>
+			<child name="blue"/>
+		</constructor>
+	</tag>
+
+	<tag name="red" type="java.lang.Integer" setter="__ignore"/>
+	<tag name="green" type="java.lang.Integer" setter="__ignore"/>
+	<tag name="blue" type="java.lang.Integer" setter="__ignore"/>
+</defines>
