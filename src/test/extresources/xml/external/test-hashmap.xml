@@ -1,0 +1,11 @@
+<xj:configuration xmlns:xj="http://www.schst.net/XJConf">
+	<map>
+		<prop name="foo">bar</prop>
+		<prop name="argh">tomato</prop>
+	</map>
+
+	<properties>
+		<prop name="foo">bar</prop>
+		<prop name="argh">tomato</prop>
+	</properties>
+</xj:configuration>

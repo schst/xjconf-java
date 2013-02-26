@@ -8,7 +8,10 @@ import net.schst.XJConf.exceptions.XJConfException;
 /**
  * @author Stephan Schmidt <stephan.schmidt@schlund.de>
  */
-public class TestPrimitives {
+public final class TestPrimitives {
+
+    private TestPrimitives() {
+    }
 
     public static void main(String[] args) throws XJConfException {
 
@@ -25,7 +28,7 @@ public class TestPrimitives {
             System.exit(0);
         }
 
-        ColorPrimitives color = (ColorPrimitives)conf.getConfigValue("color");
+        ColorPrimitives color = (ColorPrimitives) conf.getConfigValue("color");
         System.out.println(color);
     }
 }

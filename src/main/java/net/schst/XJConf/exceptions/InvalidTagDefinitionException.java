@@ -2,19 +2,18 @@ package net.schst.XJConf.exceptions;
 
 public class InvalidTagDefinitionException extends XJConfException {
 
-	public InvalidTagDefinitionException(String message) {
-		super(message);
-		// TODO Auto-generated constructor stub
-	}
+    private static final long serialVersionUID = -5914098280724162400L;
 
-	public InvalidTagDefinitionException(Exception e) {
-		super(e);
-		// TODO Auto-generated constructor stub
-	}
+    public InvalidTagDefinitionException(String message) {
+        super(message);
+    }
 
-	public InvalidTagDefinitionException(String message, Exception e) {
-		super(message, e);
-		// TODO Auto-generated constructor stub
-	}
+    public InvalidTagDefinitionException(Exception e) {
+        super(e);
+    }
+
+    public InvalidTagDefinitionException(String message, Exception e) {
+        super(message, e);
+    }
 
 }

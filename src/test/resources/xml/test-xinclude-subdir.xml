@@ -1,0 +1,5 @@
+<xj:configuration
+    xmlns:xj="http://www.schst.net/XJConf"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+	<xi:include href="subdir/test-hashmap.xml"/>
+</xj:configuration>

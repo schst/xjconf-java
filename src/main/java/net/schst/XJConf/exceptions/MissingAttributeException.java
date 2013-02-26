@@ -1,10 +1,11 @@
 package net.schst.XJConf.exceptions;
 
-
 /**
  * @author Stephan Schmidt <stephan.schmidt@schlund.de>
  */
 public class MissingAttributeException extends ValueConversionException {
+
+    private static final long serialVersionUID = 854801274215580679L;
 
     /**
      * @param e

@@ -7,7 +7,7 @@ public class ConstructorColor {
     private Integer red = null;
     private Integer green = null;
     private Integer blue = null;
-    
+
     /**
      * @param red
      * @param green
@@ -19,7 +19,7 @@ public class ConstructorColor {
         this.green = green;
         this.blue = blue;
     }
-    
+
     /**
      * @return Returns the blue.
      */
@@ -38,7 +38,7 @@ public class ConstructorColor {
     public Integer getRed() {
         return this.red;
     }
-    
+
     public String toString() {
         return "R: " + this.getRed() + " / G: " + this.getGreen() + " / B: " + this.getBlue();
     }

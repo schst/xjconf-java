@@ -8,7 +8,10 @@ import net.schst.XJConf.exceptions.XJConfException;
 /**
  * @author Stephan Schmidt <stephan.schmidt@schlund.de>
  */
-public class TestCDataSetter {
+public final class TestCDataSetter {
+
+    private TestCDataSetter() {
+    }
 
     public static void main(String[] args) throws XJConfException {
         DefinitionParser tagParser = new DefinitionParser();
@@ -23,8 +26,8 @@ public class TestCDataSetter {
             e.printStackTrace();
             System.exit(0);
         }
-        
-        Complex c = (Complex)conf.getConfigValue("complex");
+
+        Complex c = (Complex) conf.getConfigValue("complex");
         System.out.println(c.render());
     }
 }

@@ -9,13 +9,16 @@ import net.schst.XJConf.XmlReader;
 import net.schst.XJConf.exceptions.XJConfException;
 
 /**
- * Example that shows how to use ArrayList and the keyAttribute
- * 
+ * Example that shows how to use ArrayList and the keyAttribute.
+ *
  * @author sschmidt
  */
-public class Example2 {
+public final class Example2 {
 
-	public static void main(String[] args) throws XJConfException {
+    private Example2() {
+    }
+
+    public static void main(String[] args) throws XJConfException {
         DefinitionParser tagParser = new DefinitionParser();
         File defines = new File("src/test/resources/xml/defines2.xml");
         NamespaceDefinitions defs = tagParser.parse(defines);
@@ -31,15 +34,15 @@ public class Example2 {
             e.printStackTrace();
             System.exit(0);
         }
-        
-        Integer one = (Integer)conf.getConfigValue("one");
+
+        Integer one = (Integer) conf.getConfigValue("one");
         System.out.println("getConfigValue(one) " + one);
-        Integer two = (Integer)conf.getConfigValue("two");
+        Integer two = (Integer) conf.getConfigValue("two");
         System.out.println("getConfigValue(two) " + two);
-        Integer three = (Integer)conf.getConfigValue("three");
+        Integer three = (Integer) conf.getConfigValue("three");
         System.out.println("getConfigValue(three) " + three);
 
-        ArrayList colors = (ArrayList)conf.getConfigValue("colors");
+        ArrayList colors = (ArrayList) conf.getConfigValue("colors");
         System.out.println("getConfigValue(colors) " + colors);
-	}
+    }
 }

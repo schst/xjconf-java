@@ -5,26 +5,26 @@ public interface IPrimitivesContainer {
     /**
      * @return Returns the booleanValue.
      */
-    public abstract boolean getBooleanValue();
+    boolean getBooleanValue();
 
     /**
      * @return Returns the floatValue.
      */
-    public abstract float getFloatValue();
+    float getFloatValue();
 
     /**
      * @return Returns the intValue.
      */
-    public abstract int getIntValue();
+    int getIntValue();
 
     /**
      * @return Returns the longValue.
      */
-    public abstract long getLongValue();
+    long getLongValue();
 
     /**
      * @return Returns the doubleParam.
      */
-    public abstract double getDoubleValue();
+    double getDoubleValue();
 
 }

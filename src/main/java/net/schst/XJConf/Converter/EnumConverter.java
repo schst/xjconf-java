@@ -3,17 +3,18 @@ package net.schst.XJConf.Converter;
 import net.schst.XJConf.exceptions.ValueConversionException;
 
 /**
- * Class to convert Enums and set value
- * 
+ * Class to convert Enums and set value.
+ *
  * @author Daniel Jahnke <daniel.jahnke@1und1.de>
  */
-public class EnumConverter implements TypeConverter {
+public class EnumConverter<T extends Enum<T>> implements TypeConverter {
 
-    private Class<? extends Enum> enumClass;
-    private Object instance;
+    private Class<T> enumClass;
+    private T instance;
 
+    @SuppressWarnings("unchecked")
     public void doInstantiate(String className, ClassLoader loader) throws ClassNotFoundException {
-        enumClass = Class.forName(className).asSubclass(Enum.class);
+        enumClass = (Class<T>) Class.forName(className).asSubclass(Enum.class);
     }
 
     public void setValues(Object[] values, Class<?>[] types) throws ValueConversionException {

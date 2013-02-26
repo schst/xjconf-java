@@ -7,6 +7,8 @@ import net.schst.XJConf.exceptions.XJConfException;
  */
 public class XIncludeException extends XJConfException {
 
+    private static final long serialVersionUID = -5453475466235377080L;
+
     /**
      * @param message
      */
@@ -28,4 +30,5 @@ public class XIncludeException extends XJConfException {
     public XIncludeException(String message, Exception e) {
         super(message, e);
     }
+
 }

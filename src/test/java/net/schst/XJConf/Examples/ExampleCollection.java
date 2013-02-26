@@ -10,7 +10,10 @@ import net.schst.XJConf.exceptions.XJConfException;
 /**
  * @author Stephan Schmidt <stephan.schmidt@schlund.de>
  */
-public class ExampleCollection {
+public final class ExampleCollection {
+
+    private ExampleCollection() {
+    }
 
     public static void main(String[] args) throws XJConfException {
         DefinitionParser tagParser = new DefinitionParser();
@@ -25,8 +28,8 @@ public class ExampleCollection {
             e.printStackTrace();
             System.exit(0);
         }
-        
-        ArrayList list = (ArrayList)conf.getConfigValue("list");
+
+        ArrayList list = (ArrayList) conf.getConfigValue("list");
         System.out.println(list);
     }
 }

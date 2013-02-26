@@ -5,13 +5,16 @@ import net.schst.XJConf.NamespaceDefinitions;
 import net.schst.XJConf.XmlReader;
 import net.schst.XJConf.exceptions.XJConfException;
 
-public class TestInterfaces {
+public final class TestInterfaces {
 
-	/**
-	 * @param args
-	 * @throws XJConfException 
-	 */
-	public static void main(String[] args) throws XJConfException {
+    private TestInterfaces() {
+    }
+
+    /**
+     * @param args
+     * @throws XJConfException
+     */
+    public static void main(String[] args) throws XJConfException {
         DefinitionParser tagParser = new DefinitionParser();
         NamespaceDefinitions defs = tagParser.parse("src/test/resources/xml/defines-interfaces.xml");
 
@@ -24,9 +27,9 @@ public class TestInterfaces {
             e.printStackTrace();
             System.exit(0);
         }
-        
-        MyClass foo = (MyClass)conf.getConfigValue("foo");
+
+        MyClass foo = (MyClass) conf.getConfigValue("foo");
         System.out.println(foo);
         System.out.println(foo.getBar());
-	}
+    }
 }

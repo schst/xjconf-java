@@ -13,14 +13,14 @@ package net.schst.XJConf.Examples;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class ColorPrimitives {
-	private int red;
+    private int red;
     private int green;
     private int blue;
     private String name = null;
     private String colorTitle = null;
 
     public ColorPrimitives(String name) {
-    	this.name = name;
+        this.name = name;
     }
 
     public void setRed(int val) {
@@ -36,11 +36,11 @@ public class ColorPrimitives {
     public void setColorTitle(String title) {
         this.colorTitle = title;
     }
-    
+
     public String getRGB() {
-    	return "#" + Integer.toHexString(this.red) + Integer.toHexString(this.green) + Integer.toHexString(this.blue);
+        return "#" + Integer.toHexString(this.red) + Integer.toHexString(this.green) + Integer.toHexString(this.blue);
     }
-    
+
     public String getName() {
         return this.name;
     }
@@ -48,8 +48,8 @@ public class ColorPrimitives {
     public String getColorTitle() {
         return this.colorTitle;
     }
-    
+
     public String toString() {
-    	return this.name  + "(" + this.getRGB() + ")";
+        return this.name + "(" + this.getRGB() + ")";
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><document xmlns="http://maven.apache.org/changes/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
+  <body>
+    <release date="2013-02-22" version="0.12.4">
+      <action date="2013-02-22" dev="garican" type="add">
+        enable source overwriting
+      </action>
+    </release>
+    <release date="2012-05-09" version="0.12.3">
+      <action dev="chhardt" type="update">
+        add inheritage
+      </action>
+      <action dev="ak" type="update">
+        Moved SCM.
+      </action>
+      <action date="2011-10-12" dev="michaelorou" type="update">
+        Upgraded wsd to 1.8.3 and fixed resulting checkstyle problems.
+      </action>
+    </release>
+    <release date="2011-04-29" version="0.12.2">
+      <action date="2011-04-04" dev="ffray" type="add">
+        Added changes.xml, updated parent to wsd:1.5.2 added developers to pom.
+      </action>
+      <action date="2011-04-04" dev="ffray" due-to="Gökhan Arican" type="add">
+        Added support for "classpath"-schema. Extended test-cases.
+      </action>
+    </release>
+  </body>
+</document>

@@ -6,6 +6,9 @@ import org.xml.sax.SAXException;
  * @author Stephan Schmidt <stephan.schmidt@schlund.de>
  */
 public class XJConfException extends SAXException {
+
+    private static final long serialVersionUID = 7630162513203322987L;
+
     /**
      * @param message
      */
@@ -25,4 +28,5 @@ public class XJConfException extends SAXException {
     public XJConfException(String message, Exception e) {
         super(message, e);
     }
+
 }

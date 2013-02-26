@@ -1,14 +1,15 @@
 package net.schst.XJConf.tests.helpers;
 
 public class PrimitivesContainer implements IPrimitivesContainer {
+
     private boolean booleanValue;
     private int intValue;
     private long longValue;
     private float floatValue;
     private double doubleValue;
     private short shortValue;
-    
-    /* (non-Javadoc)
+
+    /*
      * @see net.schst.XJConf.tests.helpers.IPrimitivesContainer#getBooleanValue()
      */
     public boolean getBooleanValue() {
@@ -20,7 +21,7 @@ public class PrimitivesContainer implements IPrimitivesContainer {
     public void setBooleanValue(boolean booleanValue) {
         this.booleanValue = booleanValue;
     }
-    /* (non-Javadoc)
+    /*
      * @see net.schst.XJConf.tests.helpers.IPrimitivesContainer#getFloatValue()
      */
     public float getFloatValue() {
@@ -80,4 +81,5 @@ public class PrimitivesContainer implements IPrimitivesContainer {
     public void setShortValue(short shortValue) {
         this.shortValue = shortValue;
     }
+
 }

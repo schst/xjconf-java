@@ -14,11 +14,11 @@ package net.schst.XJConf.Examples;
  */
 public class UpperString {
     private String data = null;
-    
-	public UpperString(String data) {
+
+    public UpperString(String data) {
         this.data = data.toUpperCase();
     }
-    
+
     public String getString() {
         return this.data;
     }

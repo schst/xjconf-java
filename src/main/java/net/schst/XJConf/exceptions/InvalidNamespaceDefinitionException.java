@@ -1,23 +1,24 @@
 package net.schst.XJConf.exceptions;
 
 /**
- * InvalidNamespaceDefinitionException
- *
- * This exception is thrown, when a namespace is incorrectly defined.
+ * This exception is thrown when a namespace is incorrectly defined.
  *
  * @author Stephan Schmidt <me@schst.net>
  */
 public class InvalidNamespaceDefinitionException extends XJConfException {
 
-	public InvalidNamespaceDefinitionException(String message) {
-		super(message);
-	}
+    private static final long serialVersionUID = 3277376593527207523L;
 
-	public InvalidNamespaceDefinitionException(Exception e) {
-		super(e);
-	}
+    public InvalidNamespaceDefinitionException(String message) {
+        super(message);
+    }
 
-	public InvalidNamespaceDefinitionException(String message, Exception e) {
-		super(message, e);
-	}
+    public InvalidNamespaceDefinitionException(Exception e) {
+        super(e);
+    }
+
+    public InvalidNamespaceDefinitionException(String message, Exception e) {
+        super(message, e);
+    }
+
 }
