@@ -6,13 +6,19 @@
   <groupId>net.schst</groupId>
   <artifactId>XJConf</artifactId>
   <version>0.12.5-SNAPSHOT</version>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
+
   <name>XJConf</name>
-
-  <properties>
-    <project.description>Beschreibung</project.description>
-  </properties>
-
+  <description>XJConf is a simple Inversion-of-Control container, that builds object trees based on your XML configuration.</description>
+  <url>https://github.com/schst/xjconf-java</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
   <developers>
     <developer>
       <id>schst</id>
@@ -27,27 +33,21 @@
       <name>Florian Fray</name>
       <email>florian.fray@1und1.de</email>
     </developer>
+    <developer>
+      <id>akurth</id>
+      <name>Andreas Kurth</name>
+      <email>andreas.kurth@1und1.de</email>
+    </developer>
   </developers>
 
   <scm>
-    <connection>scm:svn:https://svn.1and1.org/svn/PFX/order-modules/xjconf/trunk</connection>
-    <developerConnection>scm:svn:https://svn.1and1.org/svn/PFX/order-modules/xjconf/trunk</developerConnection>
-    <url>https://svn.1and1.org/svn/PFX/order-modules/xjconf/trunk</url>
+    <connection>scm:git:git@github.com:schst/xjconf-java.git</connection>
+    <url>scm:git:git@github.com:schst/xjconf-java.git</url>
+    <developerConnection>scm:git:git@github.com:schst/xjconf-java.git</developerConnection>
   </scm>
 
   <build>
     <plugins>
-      <plugin>
-         <groupId>org.apache.felix</groupId>
-         <artifactId>maven-bundle-plugin</artifactId>
-         <extensions>true</extensions>
-         <version>2.0.1</version>
-         <configuration>
-            <instructions>
-            </instructions>
-         </configuration>
-      </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -62,7 +62,6 @@
           </excludes>
         </configuration>        
       </plugin>
-
     </plugins>
   </build>
 
