@@ -271,10 +271,8 @@ public class TagDefinition implements Definition, Cloneable {
 
         // set all attributes
         String methodName = null;
-        for (int i = 0; i < atts.size(); i++) {
+        for (AttributeDefinition att : atts) {
 
-            // get the attribute definition
-            AttributeDefinition att = (AttributeDefinition) atts.get(i);
             Object val = att.convertValue(tag, loader);
 
             // attribute has not been set and there is no

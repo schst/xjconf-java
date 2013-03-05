@@ -32,11 +32,7 @@ public class Math implements Extension {
         // add several values
         if (tag.getName().equals("add")) {
             double result = 0;
-
-            ArrayList<Tag> children = tag.getChildren();
-            Tag child;
-            for (int i = 0; i < children.size(); i++) {
-                child = (Tag) children.get(i);
+            for (Tag child : tag.getChildren()) {
                 result = result + Double.parseDouble(child.getConvertedValue(loader).toString());
             }
             GenericTag resultTag = new GenericTag(tag.getName());

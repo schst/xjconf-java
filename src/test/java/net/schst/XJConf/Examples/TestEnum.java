@@ -30,8 +30,7 @@ public final class TestEnum {
         }
 
         ArrayList<PlanetInfo> list = (ArrayList<PlanetInfo>) conf.getConfigValue("planets");
-        for (int i = 0; i < list.size(); i++) {
-            PlanetInfo p = list.get(i);
+        for (PlanetInfo p : list) {
             System.out.println("surface gravity on " + p.getPlanet() + " is: " + p.getSurfaceGravity() + " and has "
                     + p.getMoonNumber() + " moon(s)");
         }
