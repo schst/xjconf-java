@@ -12,6 +12,6 @@ public class MyClass implements MyInterface {
     }
 
     public MyInterface getBar() {
-        return this.bar;
+        return bar;
     }
 }

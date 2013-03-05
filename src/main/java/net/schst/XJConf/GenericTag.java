@@ -80,8 +80,8 @@ public class GenericTag implements Tag {
      */
     public int addData(char[] buf, int offset, int len) {
         String s = new String(buf, offset, len);
-        this.data.append(s);
-        return this.data.length();
+        data.append(s);
+        return data.length();
     }
 
     /**
@@ -91,7 +91,7 @@ public class GenericTag implements Tag {
      * @return
      */
     public boolean hasAttribute(String aName) {
-        return this.atts.containsKey(aName);
+        return atts.containsKey(aName);
     }
 
     /**
@@ -101,7 +101,7 @@ public class GenericTag implements Tag {
      * @return   value of the attribute
      */
     public String getAttribute(String aName) {
-        return (String) this.atts.get(aName);
+        return (String) atts.get(aName);
     }
 
     /**
@@ -110,7 +110,7 @@ public class GenericTag implements Tag {
      * @return   children
      */
     public ArrayList<Tag> getChildren() {
-        return this.children;
+        return children;
     }
 
     /**
@@ -134,7 +134,7 @@ public class GenericTag implements Tag {
      * @return   name of the tag
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -143,7 +143,7 @@ public class GenericTag implements Tag {
      * @return   character data
      */
     public String getData() {
-        return this.data.toString().trim();
+        return data.toString().trim();
     }
 
     /**
@@ -153,8 +153,8 @@ public class GenericTag implements Tag {
      * @return       number of childs added
      */
     public int addChild(Tag child) {
-        this.children.add(child);
-        return this.children.size();
+        children.add(child);
+        return children.size();
     }
 
     /**
@@ -164,14 +164,14 @@ public class GenericTag implements Tag {
      * @retun the value of the tag
      */
     public Object getConvertedValue(ClassLoader loader) throws ValueConversionException {
-        return this.value;
+        return value;
     }
 
     /**
      * Get the key under which the value will be stored.
      */
     public String getKey() {
-        return this.key;
+        return key;
     }
 
     /**
@@ -187,10 +187,10 @@ public class GenericTag implements Tag {
      * Get the type of the value.
      */
     public Class<?> getValueType(Tag tag, ClassLoader loader) {
-        if (this.value == null) {
+        if (value == null) {
             return null;
         }
-        return this.value.getClass();
+        return value.getClass();
     }
 
     /**
@@ -206,10 +206,10 @@ public class GenericTag implements Tag {
      * Get the setter method.
      */
     public String getSetterMethod() {
-        if (this.key == null) {
+        if (key == null) {
             return null;
         }
-        return "set" + this.key.substring(0, 1).toUpperCase() + this.key.substring(1);
+        return "set" + key.substring(0, 1).toUpperCase() + key.substring(1);
     }
 
     /**
@@ -223,10 +223,10 @@ public class GenericTag implements Tag {
      * Get the content.
      */
     public Object getContent() {
-        if (this.content != null) {
-            return this.content;
+        if (content != null) {
+            return content;
         }
-        return this.getData();
+        return getData();
     }
 
     /**

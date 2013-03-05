@@ -32,7 +32,7 @@ public class NamespaceDefinition {
      * @param    tag definition
      */
     public void addTagDefinition(TagDefinition tag) {
-        this.tagDefinitions.put(tag.getTagName(), tag);
+        tagDefinitions.put(tag.getTagName(), tag);
     }
 
     /**
@@ -41,7 +41,7 @@ public class NamespaceDefinition {
      * @return   number of defined tags
      */
     public int countTagDefinitions() {
-        return this.tagDefinitions.size();
+        return tagDefinitions.size();
     }
 
     /**
@@ -51,7 +51,7 @@ public class NamespaceDefinition {
      * @return   true, if the tag has been defined, false otherwise
      */
     public boolean isDefined(String tagName) {
-        return this.tagDefinitions.containsKey(tagName);
+        return tagDefinitions.containsKey(tagName);
     }
 
     /**
@@ -62,7 +62,7 @@ public class NamespaceDefinition {
      * @see      net.schst.XJConf.TagDefinition
      */
     public TagDefinition getDefinition(String tagName) {
-        return (TagDefinition) this.tagDefinitions.get(tagName);
+        return (TagDefinition) tagDefinitions.get(tagName);
     }
 
     /**
@@ -71,6 +71,6 @@ public class NamespaceDefinition {
      * @return
      */
     public String getNamespaceURI() {
-        return this.namespaceURI;
+        return namespaceURI;
     }
 }

@@ -19,7 +19,7 @@ public class NamespaceDefinitions {
      * @param defs           namespace definition object
      */
     public void addNamespaceDefinition(String namespace, NamespaceDefinition defs) {
-        this.namespaces.put(namespace, defs);
+        namespaces.put(namespace, defs);
     }
 
     /**
@@ -29,7 +29,7 @@ public class NamespaceDefinitions {
      * @return               namespace definition object
      */
     public NamespaceDefinition getNamespaceDefinition(String namespace) {
-        return (NamespaceDefinition) this.namespaces.get(namespace);
+        return (NamespaceDefinition) namespaces.get(namespace);
     }
 
     /**
@@ -39,7 +39,7 @@ public class NamespaceDefinitions {
      * @return               true, if the namespace has been defined, false otherwise
      */
     public boolean isNamespaceDefined(String namespace) {
-        return this.namespaces.containsKey(namespace);
+        return namespaces.containsKey(namespace);
     }
 
     /**
@@ -48,7 +48,7 @@ public class NamespaceDefinitions {
      * @return              list of all namespace URIs that have been defined
      */
     public Set<String> getDefinedNamespaces() {
-        return this.namespaces.keySet();
+        return namespaces.keySet();
     }
 
     /**
@@ -59,10 +59,10 @@ public class NamespaceDefinitions {
      * @return               true, if the tag has been defined, false otherwise
      */
     public boolean isTagDefined(String namespace, String tagname) {
-        if (!this.isNamespaceDefined(namespace)) {
+        if (!isNamespaceDefined(namespace)) {
             return false;
         }
-        return this.getNamespaceDefinition(namespace).isDefined(tagname);
+        return getNamespaceDefinition(namespace).isDefined(tagname);
     }
 
     /**
@@ -73,10 +73,10 @@ public class NamespaceDefinitions {
      * @return               TagDefinition object or null
      */
     public TagDefinition getTagDefinition(String namespace, String localname) {
-        if (!this.isNamespaceDefined(namespace)) {
+        if (!isNamespaceDefined(namespace)) {
             return null;
         }
-        return (TagDefinition) this.getNamespaceDefinition(namespace).getDefinition(localname);
+        return (TagDefinition) getNamespaceDefinition(namespace).getDefinition(localname);
     }
 
     /**
@@ -104,7 +104,7 @@ public class NamespaceDefinitions {
 
         for (String namespace : nsDefs.getDefinedNamespaces()) {
             nsDef = nsDefs.getNamespaceDefinition(namespace);
-            this.addNamespaceDefinition(namespace, nsDef);
+            addNamespaceDefinition(namespace, nsDef);
         }
     }
 }

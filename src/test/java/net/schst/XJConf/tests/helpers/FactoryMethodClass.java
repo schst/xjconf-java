@@ -13,7 +13,7 @@ public class FactoryMethodClass {
     }
 
     public String getParam() {
-        return this.param;
+        return param;
     }
 
     public void setParam(String param) {

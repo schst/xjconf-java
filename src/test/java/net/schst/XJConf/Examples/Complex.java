@@ -23,7 +23,7 @@ public class Complex {
     }
 
     public void setColor(String color) {
-        this.colorString = color;
+        colorString = color;
     }
 
     public void setColor(Color color) {
@@ -35,12 +35,12 @@ public class Complex {
     }
 
     public String render() {
-        if (this.color == null) {
-            return "<font color=\"" + this.colorString + "\" size=\"" + this.size.toString() + "\">" + this.data
+        if (color == null) {
+            return "<font color=\"" + colorString + "\" size=\"" + size.toString() + "\">" + data
                     + "</font>";
         } else {
-            return "<font title=\"This text is written in " + this.color.getName() + " (" + this.color.getColorTitle()
-                    + ") \" color=\"" + this.color.getRGB() + "\" size=\"" + this.size.toString() + "\">" + this.data
+            return "<font title=\"This text is written in " + color.getName() + " (" + color.getColorTitle()
+                    + ") \" color=\"" + color.getRGB() + "\" size=\"" + size.toString() + "\">" + data
                     + "</font>";
         }
     }

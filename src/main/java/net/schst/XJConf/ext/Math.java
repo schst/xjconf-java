@@ -21,7 +21,7 @@ public class Math implements Extension {
     private String namespace = "http://www.schst.net/XJConf/Math";
 
     public String getNamespace() {
-        return this.namespace;
+        return namespace;
     }
 
     public void startElement(XmlReader reader, Tag tag, ClassLoader loader) throws XJConfException {

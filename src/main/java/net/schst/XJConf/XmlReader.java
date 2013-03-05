@@ -86,7 +86,7 @@ public class XmlReader extends DefaultHandler {
      * Classloader that will be used for extensions
      * and dynamically created classes.
      */
-    private ClassLoader loader = this.getClass().getClassLoader();
+    private ClassLoader loader = getClass().getClassLoader();
 
     public XmlReader() {
         super();
@@ -105,7 +105,7 @@ public class XmlReader extends DefaultHandler {
      * @see   net.schst.XJConf.DefinitionParser
      */
     public void setTagDefinitions(NamespaceDefinitions defs) {
-        this.tagDefs = defs;
+        tagDefs = defs;
     }
 
     /**
@@ -118,11 +118,11 @@ public class XmlReader extends DefaultHandler {
      * @param defs  namespace definitions
      */
     public void addTagDefinitions(NamespaceDefinitions defs) {
-        if (this.tagDefs == null) {
-            this.setTagDefinitions(defs);
+        if (tagDefs == null) {
+            setTagDefinitions(defs);
             return;
         }
-        this.tagDefs.appendNamespaceDefinitions(defs);
+        tagDefs.appendNamespaceDefinitions(defs);
     }
 
     /**
@@ -132,7 +132,7 @@ public class XmlReader extends DefaultHandler {
      * @param ext
      */
     public void addExtension(String namespace, Extension ext) {
-        this.extensions.put(namespace, ext);
+        extensions.put(namespace, ext);
     }
 
     /**
@@ -142,7 +142,7 @@ public class XmlReader extends DefaultHandler {
      * @throws UnknownExtensionException
      */
     public void addExtension(String name) throws UnknownExtensionException {
-        this.addExtension(name, this.getClass().getClassLoader());
+        addExtension(name, getClass().getClassLoader());
     }
 
     /**
@@ -161,7 +161,7 @@ public class XmlReader extends DefaultHandler {
             throw new UnknownExtensionException("The extension " + name + " could not be loaded.");
         }
         String ns = ext.getNamespace();
-        this.addExtension(ns, ext);
+        addExtension(ns, ext);
     }
 
     /**
@@ -188,9 +188,9 @@ public class XmlReader extends DefaultHandler {
      *
      */
     private void initParserFactory() {
-        if (null == this.parserFactory) {
-            this.parserFactory = SAXParserFactory.newInstance();
-            this.parserFactory.setNamespaceAware(true);
+        if (null == parserFactory) {
+            parserFactory = SAXParserFactory.newInstance();
+            parserFactory.setNamespaceAware(true);
         }
     }
 
@@ -204,8 +204,8 @@ public class XmlReader extends DefaultHandler {
      * @throws IOException
      */
     public void parse(File file, ClassLoader classLoader) throws XJConfException, IOException {
-        this.loader = classLoader;
-        this.parse(file);
+        loader = classLoader;
+        parse(file);
     }
 
     /**
@@ -229,7 +229,7 @@ public class XmlReader extends DefaultHandler {
      */
     public void parse(String filename, ClassLoader classLoader) throws XJConfException, IOException {
         File file = new File(filename);
-        this.parse(file, classLoader);
+        parse(file, classLoader);
     }
 
     /**
@@ -241,7 +241,7 @@ public class XmlReader extends DefaultHandler {
      */
     public void parse(String filename) throws XJConfException, IOException {
         File file = new File(filename);
-        this.parse(file);
+        parse(file);
     }
 
     /**
@@ -253,7 +253,7 @@ public class XmlReader extends DefaultHandler {
      * @throws IOException
      */
     public void parse(Source source, ClassLoader classLoader) throws XJConfException, IOException {
-        this.loader = classLoader;
+        loader = classLoader;
         parse(source);
     }
 
@@ -265,14 +265,14 @@ public class XmlReader extends DefaultHandler {
      * @throws IOException
      */
     public void parse(Source source) throws XJConfException, IOException {
-        this.initParserFactory();
+        initParserFactory();
 
         openSources.push(source);
 
         SAXParser saxParser;
         InputStream stream = null;
         try {
-            saxParser = this.parserFactory.newSAXParser();
+            saxParser = parserFactory.newSAXParser();
             stream = source.getInputStream();
             saxParser.parse(stream, this);
         } catch (XJConfException e) {
@@ -323,10 +323,10 @@ public class XmlReader extends DefaultHandler {
      */
     public void startElement(String namespaceURI, String sName, String qName, Attributes atts) throws SAXException {
 
-        if (this.myNamespace.equals(namespaceURI) && this.depth > 0) {
+        if (myNamespace.equals(namespaceURI) && depth > 0) {
             return;
         }
-        this.depth++;
+        depth++;
 
         // no namespace defined, use the default namespace
         if (namespaceURI.equals("")) {
@@ -334,33 +334,33 @@ public class XmlReader extends DefaultHandler {
         }
 
         // ignore the root tag
-        if (this.depth == 1) {
+        if (depth == 1) {
             return;
         }
 
         // This tag needs to be handled by an extension
-        if (this.extensions.containsKey(namespaceURI)) {
+        if (extensions.containsKey(namespaceURI)) {
             Tag tag = new GenericTag(sName, atts);
-            ((Extension) (this.extensions.get(namespaceURI))).startElement(this, tag, this.loader);
-            this.tagStack.push(tag);
+            ((Extension) (extensions.get(namespaceURI))).startElement(this, tag, loader);
+            tagStack.push(tag);
 
             // This tag has been defined internally
         } else {
-            if (!this.tagDefs.isNamespaceDefined(namespaceURI)) {
+            if (!tagDefs.isNamespaceDefined(namespaceURI)) {
                 Source source = getCurrentSource();
                 String name = source == null ? null : source.getName();
                 throw new UnknownNamespaceException("Unknown namespace " + namespaceURI + " in file "
                         + String.valueOf(name));
             }
-            if (!this.tagDefs.isTagDefined(namespaceURI, sName)) {
+            if (!tagDefs.isTagDefined(namespaceURI, sName)) {
                 throw new UnknownTagException("Unknown tag " + sName + " in namespace " + namespaceURI);
             }
             DefinedTag tag = new DefinedTag(sName, atts);
             // fetch the defintion for this tag
-            TagDefinition tagDef = this.tagDefs.getTagDefinition(namespaceURI, sName);
+            TagDefinition tagDef = tagDefs.getTagDefinition(namespaceURI, sName);
             tag.setDefinition(tagDef);
             tag.validate();
-            this.tagStack.push(tag);
+            tagStack.push(tag);
         }
     }
 
@@ -371,10 +371,10 @@ public class XmlReader extends DefaultHandler {
      * converts it to the correct type.
      */
     public void endElement(String namespaceURI, String sName, String qName) throws SAXException {
-        if (this.myNamespace.equals(namespaceURI) && this.depth > 0) {
+        if (myNamespace.equals(namespaceURI) && depth > 0) {
             return;
         }
-        this.depth--;
+        depth--;
 
         // no namespace defined, use the default namespace
         if (namespaceURI.equals("")) {
@@ -382,34 +382,34 @@ public class XmlReader extends DefaultHandler {
         }
 
         // ignore the root tag
-        if (this.depth == 0) {
+        if (depth == 0) {
             return;
         }
 
         // get the last tag from the stack
-        Tag tag = (Tag) this.tagStack.pop();
-        if (this.extensions.containsKey(namespaceURI)) {
-            Tag result = ((Extension) (this.extensions.get(namespaceURI))).endElement(this, tag, this.loader);
+        Tag tag = (Tag) tagStack.pop();
+        if (extensions.containsKey(namespaceURI)) {
+            Tag result = ((Extension) (extensions.get(namespaceURI))).endElement(this, tag, loader);
             if (result != null) {
-                if (this.depth == 1) {
-                    this.config.put(tag.getKey(), result.getConvertedValue(this.loader));
+                if (depth == 1) {
+                    config.put(tag.getKey(), result.getConvertedValue(loader));
                 } else {
-                    Tag parent = (Tag) this.tagStack.pop();
+                    Tag parent = (Tag) tagStack.pop();
                     if (result.getKey() == null && !parent.supportsIndexedChildren()) {
                         parent.setContent(result.getConvertedValue(loader));
                     } else {
                         parent.addChild(result);
                     }
-                    this.tagStack.push(parent);
+                    tagStack.push(parent);
                 }
             }
         } else {
-            if (this.depth == 1) {
-                this.config.put(tag.getKey(), tag.getConvertedValue(this.loader));
+            if (depth == 1) {
+                config.put(tag.getKey(), tag.getConvertedValue(loader));
             } else {
-                Tag parent = (Tag) this.tagStack.pop();
+                Tag parent = (Tag) tagStack.pop();
                 parent.addChild(tag);
-                this.tagStack.push(parent);
+                tagStack.push(parent);
             }
         }
     }
@@ -421,10 +421,10 @@ public class XmlReader extends DefaultHandler {
      * appends the data.
      */
     public void characters(char[] buf, int offset, int len) throws SAXException {
-        if (this.tagStack.empty()) {
+        if (tagStack.empty()) {
             return;
         }
-        Tag tag = (Tag) this.tagStack.peek();
+        Tag tag = (Tag) tagStack.peek();
         tag.addData(buf, offset, len);
     }
 
@@ -435,7 +435,7 @@ public class XmlReader extends DefaultHandler {
      * @return   value
      */
     public Object getConfigValue(String name) {
-        return this.config.get(name);
+        return config.get(name);
     }
 
     /**
@@ -447,7 +447,7 @@ public class XmlReader extends DefaultHandler {
      */
     @SuppressWarnings("unchecked")
     public <T extends Object> T get(String name, Class<T> clazz) throws XJConfException {
-        Object val = this.config.get(name);
+        Object val = config.get(name);
         if (val == null) {
             throw new ValueNotAvailableException("Value with name " + name + " not available in the configuration.");
         }

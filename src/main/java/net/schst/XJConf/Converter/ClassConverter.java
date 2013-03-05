@@ -17,7 +17,7 @@ public class ClassConverter implements TypeConverter {
 
     public void doInstantiate(String clsName, ClassLoader loader) throws Exception {
         instanceClass = Class.forName(clsName, true, loader);
-        this.className = clsName;
+        className = clsName;
     }
 
     public Object getInstance() {
@@ -46,10 +46,10 @@ public class ClassConverter implements TypeConverter {
                 // a constructor
                 objectInstance = instanceClass.newInstance();
             } catch (Exception e2) {
-                throw new ValueConversionException("Could not create instance of " + this.className, e2);
+                throw new ValueConversionException("Could not create instance of " + className, e2);
             }
         }
-        this.instance = objectInstance;
+        instance = objectInstance;
 
     }
 

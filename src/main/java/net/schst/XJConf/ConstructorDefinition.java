@@ -20,7 +20,7 @@ public class ConstructorDefinition implements Definition {
      * Add a new child definition (equals a parameter of the constructor).
      */
     public void addChildDefinition(Definition def) throws Exception {
-        this.params.add(def);
+        params.add(def);
     }
 
     /**
@@ -28,7 +28,7 @@ public class ConstructorDefinition implements Definition {
      * @return
      */
     public ArrayList<Definition> getParams() {
-        return this.params;
+        return params;
     }
 
     /**
@@ -75,8 +75,8 @@ public class ConstructorDefinition implements Definition {
     public ArrayList<String> getUsedChildrenNames() {
         ArrayList<String> childrenNames = new ArrayList<String>();
         Definition def;
-        for (int i = 0; i < this.params.size(); i++) {
-            def = (Definition) this.params.get(i);
+        for (int i = 0; i < params.size(); i++) {
+            def = (Definition) params.get(i);
             if (def instanceof ChildDefinition) {
                 childrenNames.add(def.getName());
             }

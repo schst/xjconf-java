@@ -24,32 +24,32 @@ public class ColorPrimitives {
     }
 
     public void setRed(int val) {
-        this.red = val;
+        red = val;
     }
     public void setGreen(int val) {
-        this.green = val;
+        green = val;
     }
     public void setBlue(int val) {
-        this.blue = val;
+        blue = val;
     }
 
     public void setColorTitle(String title) {
-        this.colorTitle = title;
+        colorTitle = title;
     }
 
     public String getRGB() {
-        return "#" + Integer.toHexString(this.red) + Integer.toHexString(this.green) + Integer.toHexString(this.blue);
+        return "#" + Integer.toHexString(red) + Integer.toHexString(green) + Integer.toHexString(blue);
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String getColorTitle() {
-        return this.colorTitle;
+        return colorTitle;
     }
 
     public String toString() {
-        return this.name + "(" + this.getRGB() + ")";
+        return name + "(" + getRGB() + ")";
     }
 }

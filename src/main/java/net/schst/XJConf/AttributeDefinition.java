@@ -61,8 +61,8 @@ public class AttributeDefinition implements Definition {
             throw new XJConfException("TagDefinition needs a name.");
         }
         this.name = name;
-        this.type = "java.lang.String";
-        this.vConverter = new ObjectValueConverter(this.type);
+        type = "java.lang.String";
+        vConverter = new ObjectValueConverter(type);
     }
 
     /**
@@ -80,12 +80,12 @@ public class AttributeDefinition implements Definition {
         }
 
         this.name = name;
-        this.type = type;
+        type = type;
 
-        if (this.type.indexOf(".") == -1) {
-            this.vConverter = new PrimitiveValueConverter(this.type);
+        if (type.indexOf(".") == -1) {
+            vConverter = new PrimitiveValueConverter(type);
         } else {
-            this.vConverter = new ObjectValueConverter(this.type);
+            vConverter = new ObjectValueConverter(type);
         }
     }
 
@@ -96,7 +96,7 @@ public class AttributeDefinition implements Definition {
      * @see      getDefault()
      */
     public void setDefault(String aDefaultValue) {
-        this.defaultValue = aDefaultValue;
+        defaultValue = aDefaultValue;
     }
 
     /**
@@ -106,20 +106,20 @@ public class AttributeDefinition implements Definition {
      * @see       setDefault()
      */
     public String getDefault() {
-        return this.defaultValue;
+        return defaultValue;
     }
 
     /**
      * @return Returns the required.
      */
     public boolean isRequired() {
-        return this.required;
+        return required;
     }
     /**
      * @param required The required to set.
      */
     public void setRequired(boolean required) {
-        this.required = required;
+        required = required;
     }
 
     /**
@@ -132,7 +132,7 @@ public class AttributeDefinition implements Definition {
      * @see      getSetterMethod()
      */
     public void setSetterMethod(String aSetter) {
-        this.setter = aSetter;
+        setter = aSetter;
     }
 
     /**
@@ -143,10 +143,10 @@ public class AttributeDefinition implements Definition {
      * @see      setSetterMethod()
      */
     public String getSetterMethod() {
-        if (this.setter == null) {
-            return "set" + this.name.substring(0, 1).toUpperCase() + this.name.substring(1);
+        if (setter == null) {
+            return "set" + name.substring(0, 1).toUpperCase() + name.substring(1);
         }
-        return this.setter;
+        return setter;
     }
 
     /**
@@ -155,7 +155,7 @@ public class AttributeDefinition implements Definition {
      * @return   name of the attribute
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -165,7 +165,7 @@ public class AttributeDefinition implements Definition {
      */
     public Class<?> getValueType(Tag tag, ClassLoader loader) {
         try {
-            return this.vConverter.getType(loader);
+            return vConverter.getType(loader);
         } catch (Exception e) {
             throw new RuntimeException("Could not return type.");
         }
@@ -177,7 +177,7 @@ public class AttributeDefinition implements Definition {
      * @return   type of the attribute
      */
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -197,15 +197,15 @@ public class AttributeDefinition implements Definition {
     public Object convertValue(Tag tag, ClassLoader loader) throws ValueConversionException {
         String value;
 
-        if (tag.hasAttribute(this.getName())) {
+        if (tag.hasAttribute(getName())) {
             value = tag.getAttribute(name);
         } else {
-            value = this.getDefault();
+            value = getDefault();
         }
 
         if (value == null) {
-            if (this.isRequired()) {
-                throw new MissingAttributeException("The attribute '" + this.name + "' is required for the tag '"
+            if (isRequired()) {
+                throw new MissingAttributeException("The attribute '" + name + "' is required for the tag '"
                         + tag.getName() + "'.");
             }
             // it's no use to create an instance of a class passing null
@@ -215,7 +215,7 @@ public class AttributeDefinition implements Definition {
         Class<?>[] paramTypes = {String.class};
         String[] params = {value};
 
-        Object instance = this.vConverter.convertValue(params, paramTypes, loader);
+        Object instance = vConverter.convertValue(params, paramTypes, loader);
         return instance;
     }
 

@@ -31,8 +31,8 @@ public class CDataDefinition implements Definition {
      * Create a new CDataDefinition for a String.
      */
     public CDataDefinition() {
-        this.type = "java.lang.String";
-        this.vConverter = new ObjectValueConverter(this.type);
+        type = "java.lang.String";
+        vConverter = new ObjectValueConverter(type);
     }
 
     /**
@@ -43,10 +43,10 @@ public class CDataDefinition implements Definition {
     public CDataDefinition(String type) {
         this.type = type;
 
-        if (this.type.indexOf(".") == -1) {
-            this.vConverter = new PrimitiveValueConverter(this.type);
+        if (type.indexOf(".") == -1) {
+            vConverter = new PrimitiveValueConverter(type);
         } else {
-            this.vConverter = new ObjectValueConverter(this.type);
+            vConverter = new ObjectValueConverter(type);
         }
     }
 
@@ -60,7 +60,7 @@ public class CDataDefinition implements Definition {
      * @see      getSetterMethod()
      */
     public void setSetterMethod(String set) {
-        this.setter = set;
+        setter = set;
     }
 
     /**
@@ -83,7 +83,7 @@ public class CDataDefinition implements Definition {
             paramTypes[0] = tag.getContent().getClass();
         }
 
-        Object instance = this.vConverter.convertValue(params, paramTypes, loader);
+        Object instance = vConverter.convertValue(params, paramTypes, loader);
         return instance;
     }
 
@@ -101,7 +101,7 @@ public class CDataDefinition implements Definition {
      */
     public Class<?> getValueType(Tag tag, ClassLoader loader) {
         try {
-            return this.vConverter.getType(loader);
+            return vConverter.getType(loader);
         } catch (Exception e) {
             throw new RuntimeException("Could not return type.");
         }
@@ -111,6 +111,6 @@ public class CDataDefinition implements Definition {
      * Get the setter method, which is setData() by default.
      */
     public String getSetterMethod() {
-        return this.setter;
+        return setter;
     }
 }

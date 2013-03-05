@@ -29,7 +29,7 @@ public class XInclude implements Extension {
      * Get the namspace URI.
      */
     public String getNamespace() {
-        return this.namespace;
+        return namespace;
     }
 
     /**

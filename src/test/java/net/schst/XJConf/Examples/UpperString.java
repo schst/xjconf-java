@@ -20,6 +20,6 @@ public class UpperString {
     }
 
     public String getString() {
-        return this.data;
+        return data;
     }
 }

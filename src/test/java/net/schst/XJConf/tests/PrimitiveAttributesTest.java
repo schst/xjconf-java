@@ -18,41 +18,41 @@ public class PrimitiveAttributesTest {
     @Before
     public void setUp() throws Exception {
         NamespaceDefinitions defs =
-                this.parser.parse("src/test/resources/tests/defines/PrimitiveAttributesTestCase.xml");
-        this.xmlReader.addTagDefinitions(defs);
+                parser.parse("src/test/resources/tests/defines/PrimitiveAttributesTestCase.xml");
+        xmlReader.addTagDefinitions(defs);
 
-        this.xmlReader.parse("src/test/resources/tests/xml/PrimitiveAttributesTestCase.xml");
-        this.container = (PrimitivesContainer) this.xmlReader.getConfigValue("container");
+        xmlReader.parse("src/test/resources/tests/xml/PrimitiveAttributesTestCase.xml");
+        container = (PrimitivesContainer) xmlReader.getConfigValue("container");
     }
 
     @Test
     public void testBooleanValue() throws Exception {
-        Assert.assertTrue(this.container.getBooleanValue());
+        Assert.assertTrue(container.getBooleanValue());
     }
 
     @Test
     public void testIntValue() throws Exception {
-        Assert.assertEquals(15, this.container.getIntValue());
+        Assert.assertEquals(15, container.getIntValue());
     }
 
     @Test
     public void testLongValue() throws Exception {
-        Assert.assertEquals(42, this.container.getLongValue());
+        Assert.assertEquals(42, container.getLongValue());
     }
 
     @Test
     public void testFloatValue() throws Exception {
-        Assert.assertEquals(12.34f, this.container.getFloatValue(), 0.0001);
+        Assert.assertEquals(12.34f, container.getFloatValue(), 0.0001);
     }
 
     @Test
     public void testDoubleValue() throws Exception {
-        Assert.assertEquals(12.34d, this.container.getDoubleValue(), 0.0001);
+        Assert.assertEquals(12.34d, container.getDoubleValue(), 0.0001);
     }
 
     @Test
     public void testShortValue() throws Exception {
-        Assert.assertEquals(-34, this.container.getShortValue());
+        Assert.assertEquals(-34, container.getShortValue());
     }
 
 }

@@ -30,18 +30,18 @@ public class FactoryMethodDefinition implements Definition {
      * @return
      */
     public ArrayList<Definition> getParams() {
-        return this.params;
+        return params;
     }
 
     /**
      * Add a new child definition (equals a parameter of the factory method).
      */
     public void addChildDefinition(Definition def) throws Exception {
-        this.params.add(def);
+        params.add(def);
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public Object convertValue(Tag tag, ClassLoader loader) throws ValueConversionException {
