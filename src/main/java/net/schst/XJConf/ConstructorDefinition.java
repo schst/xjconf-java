@@ -74,9 +74,7 @@ public class ConstructorDefinition implements Definition {
      */
     public ArrayList<String> getUsedChildrenNames() {
         ArrayList<String> childrenNames = new ArrayList<String>();
-        Definition def;
-        for (int i = 0; i < params.size(); i++) {
-            def = (Definition) params.get(i);
+        for (Definition def : params) {
             if (def instanceof ChildDefinition) {
                 childrenNames.add(def.getName());
             }
