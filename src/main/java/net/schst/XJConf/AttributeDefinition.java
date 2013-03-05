@@ -80,7 +80,7 @@ public class AttributeDefinition implements Definition {
         }
 
         this.name = name;
-        type = type;
+        this.type = type;
 
         if (type.indexOf(".") == -1) {
             vConverter = new PrimitiveValueConverter(type);
