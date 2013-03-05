@@ -446,7 +446,7 @@ public class XmlReader extends DefaultHandler {
      * @throws   XJConfException    if the value has not been set, or does not have the desired type
      */
     @SuppressWarnings("unchecked")
-    public <T extends Object> T get(String name, Class<T> clazz) throws XJConfException {
+    public <T> T get(String name, Class<T> clazz) throws XJConfException {
         Object val = config.get(name);
         if (val == null) {
             throw new ValueNotAvailableException("Value with name " + name + " not available in the configuration.");
