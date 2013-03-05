@@ -43,7 +43,7 @@ public class CDataDefinition implements Definition {
     public CDataDefinition(String type) {
         this.type = type;
 
-        if (type.indexOf(".") == -1) {
+        if (!type.contains(".")) {
             vConverter = new PrimitiveValueConverter(type);
         } else {
             vConverter = new ObjectValueConverter(type);

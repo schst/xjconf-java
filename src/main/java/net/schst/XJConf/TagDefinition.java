@@ -465,7 +465,7 @@ public class TagDefinition implements Definition, Cloneable {
     private ValueConverter getValueConverter() {
 
         if (valueConverter == null) {
-            if (type.indexOf(".") == -1) {
+            if (!type.contains(".")) {
                 valueConverter = new PrimitiveValueConverter(type);
             } else {
                 if (factoryMethod != null) {

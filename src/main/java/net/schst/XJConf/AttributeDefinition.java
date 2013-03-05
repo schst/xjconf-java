@@ -82,7 +82,7 @@ public class AttributeDefinition implements Definition {
         this.name = name;
         this.type = type;
 
-        if (type.indexOf(".") == -1) {
+        if (!type.contains(".")) {
             vConverter = new PrimitiveValueConverter(type);
         } else {
             vConverter = new ObjectValueConverter(type);
