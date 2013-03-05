@@ -255,7 +255,6 @@ public class DefinitionParser extends DefaultHandler {
                 throw new InvalidTagDefinitionException("Could not register attribute", e);
             }
             defStack.push(def);
-            return;
         }
     }
 

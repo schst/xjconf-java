@@ -78,19 +78,15 @@ public class TagDefinition implements Definition, Cloneable {
 
         if (def instanceof AttributeDefinition) {
             addAttribute((AttributeDefinition) def);
-            return;
         }
-        if (def instanceof FactoryMethodDefinition) {
+        else if (def instanceof FactoryMethodDefinition) {
             factoryMethod = (FactoryMethodDefinition) def;
-            return;
         }
-        if (def instanceof ConstructorDefinition) {
+        else if (def instanceof ConstructorDefinition) {
             constructor = (ConstructorDefinition) def;
-            return;
         }
-        if (def instanceof CDataDefinition) {
+        else if (def instanceof CDataDefinition) {
             cdata = (CDataDefinition) def;
-            return;
         }
     }
 

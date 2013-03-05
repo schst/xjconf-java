@@ -71,6 +71,5 @@ public class ChildDefinition implements Definition {
      * It's not possible to add a new child.
      */
     public void addChildDefinition(Definition def) throws Exception {
-        return;
     }
 }

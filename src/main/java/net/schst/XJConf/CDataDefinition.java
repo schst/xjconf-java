@@ -67,7 +67,6 @@ public class CDataDefinition implements Definition {
      * Character data cannot have any child definitions.
      */
     public void addChildDefinition(Definition def) throws Exception {
-        return;
     }
 
     /**
