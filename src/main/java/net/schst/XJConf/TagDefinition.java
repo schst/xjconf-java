@@ -419,10 +419,7 @@ public class TagDefinition implements Definition, Cloneable {
      */
     public boolean supportsIndexedChildren() {
         //TODO Find a better (and working) way to do this check.
-        if (type.equals("java.util.ArrayList")) {
-            return true;
-        }
-        return false;
+        return type.equals("java.util.ArrayList");
     }
 
     /**
