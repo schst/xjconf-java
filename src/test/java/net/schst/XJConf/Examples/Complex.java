@@ -16,7 +16,7 @@ public class Complex {
     private String data = null;
     private Color color = null;
     private String colorString = null;
-    private Integer size = new Integer(1);
+    private Integer size = 1;
 
     public Complex(String data) {
         this.data = data;
