@@ -119,7 +119,7 @@ public class AttributeDefinition implements Definition {
      * @param required The required to set.
      */
     public void setRequired(boolean required) {
-        required = required;
+        this.required = required;
     }
 
     /**
