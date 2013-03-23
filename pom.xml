@@ -6,7 +6,7 @@
   <parent>
     <groupId>net.oneandone.maven.poms</groupId>
     <artifactId>foss-parent</artifactId>
-    <version>1.3.5</version>
+    <version>1.3.9</version>
   </parent>
 
   <groupId>net.schst</groupId>
@@ -25,7 +25,7 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
+
   <developers>
     <developer>
       <id>schst</id>
@@ -43,7 +43,7 @@
     <developer>
       <id>akurth</id>
       <name>Andreas Kurth</name>
-      <email>andreas.kurth@1und1.de</email>
+      <email>github@akurth.de</email>
     </developer>
   </developers>
 
@@ -55,10 +55,10 @@
 
   <build>
     <plugins>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.6</version>
         <configuration>
           <!-- this extra-entry is used to test resources located in foreign locations -->
           <additionalClasspathElements>
@@ -67,23 +67,55 @@
           <excludes>
             <exclude>**/Examples/*.java</exclude>
           </excludes>
-        </configuration>        
+        </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <suppressionsLocation>${basedir}/src/test/config/checkstyle-suppressions.xml</suppressionsLocation>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <configuration>
+          <failOnError>false</failOnError>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <haltOnFailure>false</haltOnFailure>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 
   <dependencies>
     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${org.slf4j.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.4</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.8.2</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 

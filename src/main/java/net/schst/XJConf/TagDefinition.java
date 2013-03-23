@@ -249,7 +249,7 @@ public class TagDefinition implements Definition, Cloneable {
 
         // get all values and their types
         for (int i = 0; i < conParams.size(); i++) {
-            paramDef = (Definition) conParams.get(i);
+            paramDef = conParams.get(i);
             cParams[i] = paramDef.convertValue(tag, loader);
             cParamTypes[i] = paramDef.getValueType(tag, loader);
         }
@@ -278,7 +278,7 @@ public class TagDefinition implements Definition, Cloneable {
         for (int i = 0; i < this.atts.size(); i++) {
 
             // get the attribute definition
-            AttributeDefinition att = (AttributeDefinition) this.atts.get(i);
+            AttributeDefinition att = this.atts.get(i);
             Object val = att.convertValue(tag, loader);
 
             // attribute has not been set and there is no
@@ -300,10 +300,10 @@ public class TagDefinition implements Definition, Cloneable {
                         try {
                             Class<?>[] meParamTypes2 = {iface};
                             me = cl.getMethod(methodName, meParamTypes2);
+                            break;
                         } catch (Exception ex) {
                             continue;
                         }
-                        break;
                     }
                 }
 
@@ -314,10 +314,9 @@ public class TagDefinition implements Definition, Cloneable {
                 if (e.getTargetException() instanceof Exception) {
                     throw new ValueConversionException("Could not set attribute '" + att.getName() + "' of '"
                             + this.type + "'.", (Exception) e.getTargetException());
-                } else {
-                    throw new RuntimeException("Could not set attribute '" + att.getName() + "' of '" + this.type
-                            + "'.", e.getTargetException());
                 }
+                throw new RuntimeException("Could not set attribute '" + att.getName() + "' of '" + this.type
+                        + "'.", e.getTargetException());
             } catch (Exception e) {
                 throw new ValueConversionException("Could not set attribute '" + att.getName() + "' of '" + this.type
                         + "'.", e);
@@ -358,21 +357,21 @@ public class TagDefinition implements Definition, Cloneable {
             try {
 
                 // Check, whether the current instance is a Properties object
-                if (instance instanceof java.util.Properties) {
-                    String key = (String) child.getKey();
+                if (instance instanceof Properties) {
+                    String key = child.getKey();
 
                     Properties properties = (Properties) instance;
                     properties.setProperty(key, (String) childValue);
 
                     // Check, whether the current instance is a HashMap
-                } else if (instance instanceof java.util.AbstractMap<?, ?>) {
-                    Object oName = (Object) child.getKey();
+                } else if (instance instanceof AbstractMap<?, ?>) {
+                    Object oName = child.getKey();
 
                     AbstractMap<Object, Object> map = (AbstractMap<Object, Object>) instance;
                     map.put(oName, childValue);
 
                     // Check, whether the current instance is a collection
-                } else if (methodName == null && instance instanceof java.util.AbstractCollection<?>) {
+                } else if (methodName == null && instance instanceof AbstractCollection<?>) {
                     AbstractCollection<Object> collection = (AbstractCollection<Object>) instance;
                     collection.add(childValue);
 
@@ -389,10 +388,10 @@ public class TagDefinition implements Definition, Cloneable {
                             try {
                                 Class<?>[] childParamTypes2 = {iface};
                                 childMethod = cl.getMethod(methodName, childParamTypes2);
+                                break;
                             } catch (Exception ex) {
                                 continue;
                             }
-                            break;
                         }
                     }
                     if (childMethod == null) {
