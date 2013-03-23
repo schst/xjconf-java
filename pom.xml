@@ -75,6 +75,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
           <suppressionsLocation>${basedir}/src/test/config/checkstyle-suppressions.xml</suppressionsLocation>
+          <logViolationsToConsole>true</logViolationsToConsole>
         </configuration>
       </plugin>
 

@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 
-import junit.framework.Assert;
 import net.schst.XJConf.DefinitionParser;
 import net.schst.XJConf.NamespaceDefinitions;
 import net.schst.XJConf.XmlReader;
 import net.schst.XJConf.exceptions.XJConfException;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +22,6 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public final class ConstructorTest {
 
-
     private static XmlReader xmlReader;
 
     private String id;
@@ -33,9 +32,9 @@ public final class ConstructorTest {
     @Parameters
     public static Collection<Object[]> getParameters() {
         return Arrays.asList(new Object[][] {
-                {"color", 100, 25, 10},
-                {"color2", 100, 25, 23},
-                {"color3", 111, 222, 333},
+                {"color", i(100), i(25), i(10)},
+                {"color2", i(100), i(25), i(23)},
+                {"color3", i(111), i(222), i(333)},
                 {"color-no-atts", null, null, null}
         });
     }
@@ -60,9 +59,9 @@ public final class ConstructorTest {
     @Test
     public void testColor() {
         ConstructorColor color = (ConstructorColor) xmlReader.getConfigValue(id);
-        Assert.assertEquals("color.red", (Integer) red, (Integer) color.getRed());
-        Assert.assertEquals("color.green", (Integer) green, (Integer) color.getGreen());
-        Assert.assertEquals("color.blue", (Integer) blue, (Integer) color.getBlue());
+        Assert.assertEquals("color.red", red, color.getRed());
+        Assert.assertEquals("color.green", green, color.getGreen());
+        Assert.assertEquals("color.blue", blue, color.getBlue());
     }
 
     public static void main(String[] args) throws XJConfException, IOException {
@@ -72,4 +71,9 @@ public final class ConstructorTest {
         System.out.println(xmlReader.getConfigValue("color3"));
         System.out.println(xmlReader.getConfigValue("color-no-atts"));
     }
+
+    private static Integer i(final int primitive) {
+        return Integer.valueOf(primitive);
+    }
+
 }

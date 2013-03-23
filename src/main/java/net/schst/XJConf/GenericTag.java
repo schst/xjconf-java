@@ -101,7 +101,7 @@ public class GenericTag implements Tag {
      * @return   value of the attribute
      */
     public String getAttribute(String aName) {
-        return (String) this.atts.get(aName);
+        return this.atts.get(aName);
     }
 
     /**

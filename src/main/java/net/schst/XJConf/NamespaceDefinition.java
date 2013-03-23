@@ -62,7 +62,7 @@ public class NamespaceDefinition {
      * @see      net.schst.XJConf.TagDefinition
      */
     public TagDefinition getDefinition(String tagName) {
-        return (TagDefinition) this.tagDefinitions.get(tagName);
+        return this.tagDefinitions.get(tagName);
     }
 
     /**

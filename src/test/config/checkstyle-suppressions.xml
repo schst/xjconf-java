@@ -7,7 +7,7 @@
 
   <suppress checks="CyclomaticComplexityCheck"
             files="DefinitionParser.java"
-            lines="121, 273"/>
+            lines="121, 272"/>
   <suppress checks="CyclomaticComplexityCheck"
             files="PrimitiveValueConverter.java"
             lines="28"/>

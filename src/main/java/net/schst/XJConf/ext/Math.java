@@ -36,7 +36,7 @@ public class Math implements Extension {
             ArrayList<Tag> children = tag.getChildren();
             Tag child;
             for (int i = 0; i < children.size(); i++) {
-                child = (Tag) children.get(i);
+                child = children.get(i);
                 result = result + Double.parseDouble(child.getConvertedValue(loader).toString());
             }
             GenericTag resultTag = new GenericTag(tag.getName());

@@ -147,8 +147,7 @@ public class DefinitionParser extends DefaultHandler {
 
             // The definition extends another definition
             if (atts.getValue("extends") != null) {
-                NamespaceDefinition nsDef = (NamespaceDefinition) this.defs
-                        .getNamespaceDefinition(this.currentNamespace);
+                NamespaceDefinition nsDef = this.defs.getNamespaceDefinition(this.currentNamespace);
                 TagDefinition extendedDef = nsDef.getDefinition(atts.getValue("extends"));
                 def = (TagDefinition) extendedDef.clone();
                 def.setName(name);
@@ -227,7 +226,7 @@ public class DefinitionParser extends DefaultHandler {
         // define an attribute
         if (qName.equals("attribute")) {
             // get the current tag
-            Definition def = (Definition) this.defStack.pop();
+            Definition def = this.defStack.pop();
             String type = atts.getValue("type");
             if (type == null) {
                 type = atts.getValue("primitive");
@@ -302,7 +301,7 @@ public class DefinitionParser extends DefaultHandler {
         // set the cdata handling
         if (qName.equals("cdata")) {
             CDataDefinition cdataDef = (CDataDefinition) this.defStack.pop();
-            Definition parentDef = (Definition) this.defStack.peek();
+            Definition parentDef = this.defStack.peek();
             try {
                 parentDef.addChildDefinition(cdataDef);
             } catch (Exception e) {
@@ -313,7 +312,7 @@ public class DefinitionParser extends DefaultHandler {
         // set the child handling
         if (qName.equals("child")) {
             ChildDefinition childDef = (ChildDefinition) this.defStack.pop();
-            Definition parentDef = (Definition) this.defStack.peek();
+            Definition parentDef = this.defStack.peek();
             try {
                 parentDef.addChildDefinition(childDef);
             } catch (Exception e) {
@@ -327,8 +326,9 @@ public class DefinitionParser extends DefaultHandler {
             if (!this.defs.isNamespaceDefined(this.currentNamespace)) {
                 this.defs.addNamespaceDefinition(this.currentNamespace, new NamespaceDefinition(this.currentNamespace));
             }
-            NamespaceDefinition nsDef = (NamespaceDefinition) this.defs.getNamespaceDefinition(this.currentNamespace);
+            NamespaceDefinition nsDef = this.defs.getNamespaceDefinition(this.currentNamespace);
             nsDef.addTagDefinition(def);
         }
     }
+
 }

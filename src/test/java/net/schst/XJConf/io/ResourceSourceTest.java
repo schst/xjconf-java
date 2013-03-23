@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
-
 
 public class ResourceSourceTest {
 
@@ -88,4 +86,5 @@ public class ResourceSourceTest {
             in.close();
         }
     }
+
 }
