@@ -29,7 +29,7 @@ public class NamespaceDefinitions {
      * @return               namespace definition object
      */
     public NamespaceDefinition getNamespaceDefinition(String namespace) {
-        return (NamespaceDefinition) this.namespaces.get(namespace);
+        return namespaces.get(namespace);
     }
 
     /**
@@ -76,7 +76,7 @@ public class NamespaceDefinitions {
         if (!this.isNamespaceDefined(namespace)) {
             return null;
         }
-        return (TagDefinition) this.getNamespaceDefinition(namespace).getDefinition(localname);
+        return getNamespaceDefinition(namespace).getDefinition(localname);
     }
 
     /**
@@ -97,7 +97,7 @@ public class NamespaceDefinitions {
      * definitions. Can be used if namespace definitions are read from
      * more than one file.
      *
-     * @param namespaceDefs
+     * @param nsDefs
      */
     public void appendNamespaceDefinitions(NamespaceDefinitions nsDefs) {
         NamespaceDefinition nsDef;
@@ -107,4 +107,5 @@ public class NamespaceDefinitions {
             this.addNamespaceDefinition(namespace, nsDef);
         }
     }
+
 }

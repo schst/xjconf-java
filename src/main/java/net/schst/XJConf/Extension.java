@@ -13,7 +13,7 @@ public interface Extension {
     /**
      * Get the namespace URI used by the extension.
      *
-     * @return
+     * @return The namespace.
      */
     String getNamespace();
 

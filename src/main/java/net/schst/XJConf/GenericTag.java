@@ -88,7 +88,7 @@ public class GenericTag implements Tag {
      * Check, whether the tag has a certain attribute.
      *
      * @param aName
-     * @return
+     * @return true or false
      */
     public boolean hasAttribute(String aName) {
         return this.atts.containsKey(aName);
@@ -114,10 +114,10 @@ public class GenericTag implements Tag {
     }
 
     /**
-     * Get the child with a specific name.
+     * Gets the child with a specific name.
      *
      * @param aName
-     * @return
+     * @return The specified child tag.
      */
     public Tag getChild(String aName) {
         for (Tag child : children) {
@@ -161,7 +161,7 @@ public class GenericTag implements Tag {
      * Fetch the value.
      *
      * @param loader
-     * @retun the value of the tag
+     * @return the value of the tag
      */
     public Object getConvertedValue(ClassLoader loader) throws ValueConversionException {
         return this.value;

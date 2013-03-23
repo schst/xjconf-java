@@ -24,8 +24,8 @@ public class ConstructorDefinition implements Definition {
     }
 
     /**
-     * Get the parameters of the constructor.
-     * @return
+     * Gets the parameters of the constructor.
+     * @return List of definitions.
      */
     public ArrayList<Definition> getParams() {
         return this.params;
@@ -48,9 +48,9 @@ public class ConstructorDefinition implements Definition {
     }
 
     /**
-     * Get the type of the constructor.
+     * Gets the type of the constructor.
      *
-     * @return  Always returns null
+     * @return  Always null
      */
     public Class<?> getValueType(Tag tag, ClassLoader loader) {
         return null;
@@ -64,23 +64,24 @@ public class ConstructorDefinition implements Definition {
     }
 
     /**
-     * Get the names of all child elements that are used in
+     * Gets the names of all child elements that are used in
      * the constructor.
      *
-     * These children are not used, when adding them using
+     * These children are not used when adding them using
      * setter-methods.
      *
-     * @return
+     * @return List of children names
      */
     public ArrayList<String> getUsedChildrenNames() {
         ArrayList<String> childrenNames = new ArrayList<String>();
         Definition def;
         for (int i = 0; i < this.params.size(); i++) {
-            def = (Definition) this.params.get(i);
+            def = this.params.get(i);
             if (def instanceof ChildDefinition) {
                 childrenNames.add(def.getName());
             }
         }
         return childrenNames;
     }
+
 }

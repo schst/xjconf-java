@@ -101,31 +101,29 @@ public class TagDefinition implements Definition, Cloneable {
      * @throws Exception
      */
     public void addAttribute(AttributeDefinition att) throws Exception {
-        this.atts.add(att);
+        atts.add(att);
     }
 
     /**
-     * set the name of the value.
-     *
-     * @return   name of the value
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Set the name of the tag.
+     * Sets the name of the value.
      *
      * @param aName
      */
-    public void setTagName(String aName) {
-        this.tagName = aName;
+    public void setName(String aName) {
+        name = aName;
     }
 
     /**
-     * Set the attribute that will be used as key.
+     * Sets the name of the tag.
      *
-     * @return   name of the value
+     * @param aTagName
+     */
+    public void setTagName(String aTagName) {
+        tagName = aTagName;
+    }
+
+    /**
+     * Sets the attribute that will be used as key.
      */
     public void setKeyAttribute(String att) {
         this.name = "__attribute";
@@ -429,7 +427,7 @@ public class TagDefinition implements Definition, Cloneable {
      *
      * @param result
      * @param superClass
-     * @return
+     * @return List of Class objects
      */
     private List<Class<?>> determineAllInterfaces(List<Class<?>> result, Class<?> superClass) {
         Class<?>[] subinterfaces = superClass.getInterfaces();
@@ -468,7 +466,7 @@ public class TagDefinition implements Definition, Cloneable {
     /**
      * Get the value converter for this tag.
      *
-     * @return
+     * @return Lazily created ValueConverter.
      */
     private ValueConverter getValueConverter() {
 
@@ -490,7 +488,7 @@ public class TagDefinition implements Definition, Cloneable {
      * Check, whether the tag has an attribute defined.
      *
      * @param attributeName
-     * @return
+     * @return true or false
      */
     public boolean hasAttributeDefinition(String attributeName) {
         for (AttributeDefinition attDefinition : this.atts) {
@@ -512,9 +510,10 @@ public class TagDefinition implements Definition, Cloneable {
     /**
      * Get the name attribute.
      *
-     * @return
+     * @return String
      */
     public String getNameAttribute() {
         return this.nameAttribute;
     }
+
 }

@@ -8,7 +8,6 @@ import java.io.InputStream;
  * xml documents.
  *
  * @author Florian Fray
- *
  */
 public interface Source {
 
@@ -24,7 +23,7 @@ public interface Source {
      * Standard relative names like '.', '..' should be supported by implementations.
      *
      * @param relName
-     * @return
+     * @return Source object
      * @throws IOException
      */
     Source createRelative(String relName) throws IOException;
@@ -34,7 +33,7 @@ public interface Source {
      * Note that using {@link #exists()} is recommended to test whether a source really exists.
      * The caller of this method should also take care to close the stream properly!
      *
-     * @return
+     * @return InputStream
      * @throws IOException
      */
     InputStream getInputStream() throws IOException;

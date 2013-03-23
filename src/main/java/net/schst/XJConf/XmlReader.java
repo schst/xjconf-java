@@ -105,7 +105,7 @@ public class XmlReader extends DefaultHandler {
      * @see   net.schst.XJConf.DefinitionParser
      */
     public void setTagDefinitions(NamespaceDefinitions defs) {
-        this.tagDefs = defs;
+        tagDefs = defs;
     }
 
     /**
@@ -171,7 +171,7 @@ public class XmlReader extends DefaultHandler {
      * @param  stream      input stream to parse
      * @throws XJConfException
      * @throws IOException
-     * @deprecated Use {@link #parse(InputStream, String)} instead.
+     * @deprecated Use {@link #parse(String, InputStream)} instead.
      */
     @Deprecated
     public void parse(InputStream stream) throws XJConfException, IOException {
@@ -290,9 +290,9 @@ public class XmlReader extends DefaultHandler {
     }
 
     /**
-     * Get the file that currently is being parsed.
+     * Gets the file that currently is being parsed.
      *
-     * @return
+     * @return File to be parsed.
      * @deprecated Use {@link #getCurrentSource()} instead.
      */
     @Deprecated
@@ -302,17 +302,15 @@ public class XmlReader extends DefaultHandler {
             && currentSource instanceof FileSource) {
             FileSource fileSource = (FileSource) currentSource;
             return fileSource.getFile();
-        } else {
-            return null;
         }
+        return null;
     }
 
     public Source getCurrentSource() {
         if (openSources.isEmpty()) {
             return null;
-        } else {
-            return openSources.peek();
         }
+        return openSources.peek();
     }
 
     /**
@@ -341,7 +339,7 @@ public class XmlReader extends DefaultHandler {
         // This tag needs to be handled by an extension
         if (this.extensions.containsKey(namespaceURI)) {
             Tag tag = new GenericTag(sName, atts);
-            ((Extension) (this.extensions.get(namespaceURI))).startElement(this, tag, this.loader);
+            this.extensions.get(namespaceURI).startElement(this, tag, this.loader);
             this.tagStack.push(tag);
 
             // This tag has been defined internally
@@ -387,14 +385,14 @@ public class XmlReader extends DefaultHandler {
         }
 
         // get the last tag from the stack
-        Tag tag = (Tag) this.tagStack.pop();
+        Tag tag = this.tagStack.pop();
         if (this.extensions.containsKey(namespaceURI)) {
-            Tag result = ((Extension) (this.extensions.get(namespaceURI))).endElement(this, tag, this.loader);
+            Tag result = this.extensions.get(namespaceURI).endElement(this, tag, this.loader);
             if (result != null) {
                 if (this.depth == 1) {
                     this.config.put(tag.getKey(), result.getConvertedValue(this.loader));
                 } else {
-                    Tag parent = (Tag) this.tagStack.pop();
+                    Tag parent = this.tagStack.pop();
                     if (result.getKey() == null && !parent.supportsIndexedChildren()) {
                         parent.setContent(result.getConvertedValue(loader));
                     } else {
@@ -407,7 +405,7 @@ public class XmlReader extends DefaultHandler {
             if (this.depth == 1) {
                 this.config.put(tag.getKey(), tag.getConvertedValue(this.loader));
             } else {
-                Tag parent = (Tag) this.tagStack.pop();
+                Tag parent = this.tagStack.pop();
                 parent.addChild(tag);
                 this.tagStack.push(parent);
             }
@@ -424,7 +422,7 @@ public class XmlReader extends DefaultHandler {
         if (this.tagStack.empty()) {
             return;
         }
-        Tag tag = (Tag) this.tagStack.peek();
+        Tag tag = this.tagStack.peek();
         tag.addData(buf, offset, len);
     }
 
@@ -454,9 +452,8 @@ public class XmlReader extends DefaultHandler {
         if (!clazz.isAssignableFrom(val.getClass())) {
             throw new ValueNotAvailableException("Value with name " + name + " is not of the desired type "
                     + clazz.getName() + ".");
-        } else {
-            return (T) val;
         }
+        return (T) val;
     }
 
     public Set<String> getNames() {
@@ -466,4 +463,5 @@ public class XmlReader extends DefaultHandler {
     public Collection<Object> getValues() {
         return Collections.unmodifiableCollection(config.values());
     }
+
 }

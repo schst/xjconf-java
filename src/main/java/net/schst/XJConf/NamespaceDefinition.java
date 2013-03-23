@@ -45,7 +45,7 @@ public class NamespaceDefinition {
     }
 
     /**
-     * Check, whether a tag has been defined.
+     * Checks whether a tag has been defined.
      *
      * @param    tagName  name of the tag
      * @return   true, if the tag has been defined, false otherwise
@@ -55,7 +55,7 @@ public class NamespaceDefinition {
     }
 
     /**
-     * Get the definition of a tag.
+     * Gets the definition of a tag.
      *
      * @param    tagName name of the tag
      * @return   The TagDefinition for this tag
@@ -66,11 +66,12 @@ public class NamespaceDefinition {
     }
 
     /**
-     * Get the URI for this namespace.
+     * Gets the URI for this namespace.
      *
-     * @return
+     * @return The namespace URI.
      */
     public String getNamespaceURI() {
         return this.namespaceURI;
     }
+
 }

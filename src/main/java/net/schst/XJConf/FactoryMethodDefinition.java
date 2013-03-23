@@ -26,8 +26,8 @@ public class FactoryMethodDefinition implements Definition {
     }
 
     /**
-     * Get the parameters of the factory method.
-     * @return
+     * Gets the parameters of the factory method.
+     * @return List of definitions.
      */
     public ArrayList<Definition> getParams() {
         return this.params;

@@ -51,13 +51,12 @@ public class CDataDefinition implements Definition {
     }
 
     /**
-     * Set the setter method.
+     * Sets the setter method.
      *
      * If no setter method is specified, the standard
      * name "setAttributename()" will be used instead.
      *
      * @param    set    name of the setter method
-     * @see      getSetterMethod()
      */
     public void setSetterMethod(String set) {
         this.setter = set;

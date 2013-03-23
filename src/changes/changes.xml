@@ -2,6 +2,10 @@
   <body>
     <release date="2013-xx-xx" version="0.12.5">
       <action date="2013-03-23" dev="akurth" type="fix">
+        Fixed all javadoc warnings.
+        Removed unnecessary casts and "else"s.
+      </action>
+      <action date="2013-03-23" dev="akurth" type="fix">
         pom fixes: rely on parent dep versions.
         Parent 1.3.9.
         Made "mvn install" work.

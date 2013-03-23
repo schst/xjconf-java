@@ -13,9 +13,9 @@
             lines="28"/>
   <suppress checks="CyclomaticComplexityCheck"
             files="XmlReader.java"
-            lines="373"/>
+            lines="371"/>
   <suppress checks="CyclomaticComplexityCheck"
             files="TagDefinition.java"
-            lines="335"/>
+            lines="333"/>
 
 </suppressions>
