@@ -16,6 +16,6 @@
             lines="371"/>
   <suppress checks="CyclomaticComplexityCheck"
             files="TagDefinition.java"
-            lines="333"/>
+            lines="335"/>
 
 </suppressions>

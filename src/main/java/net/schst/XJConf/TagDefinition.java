@@ -8,6 +8,7 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import net.schst.XJConf.exceptions.ValueConversionException;
@@ -192,23 +193,23 @@ public class TagDefinition implements Definition, Cloneable {
     }
 
     /**
-     * Get the name of the setter method that should be used.
+     * Gets the name of the setter method that should be used.
      *
      * @return         name of the setter method
      */
     public String getSetterMethod() {
-        if (this.setter != null) {
-            return this.setter;
+        if (setter != null) {
+            return setter;
         }
         // no name, the parent should be a collection
-        if (this.name.equals("__none")) {
+        if (name.equals("__none")) {
             return null;
         }
-        return "set" + this.name.substring(0, 1).toUpperCase() + this.name.substring(1);
+        return "set" + name.substring(0, 1).toUpperCase(Locale.ENGLISH) + name.substring(1);
     }
 
     /**
-     * Convert the value of the tag.
+     * Converts the value of the tag.
      *
      * @param tag      tag that will be converted
      * @param loader   ClassLoader that should be used for loading new classes
@@ -309,12 +310,13 @@ public class TagDefinition implements Definition, Cloneable {
 
                 me.invoke(instance, meParams);
             } catch (InvocationTargetException e) {
-                if (e.getTargetException() instanceof Exception) {
+                Throwable t = e.getTargetException();
+                if (t instanceof Exception) {
                     throw new ValueConversionException("Could not set attribute '" + att.getName() + "' of '"
-                            + this.type + "'.", (Exception) e.getTargetException());
+                            + this.type + "'.", (Exception) t);
                 }
                 throw new RuntimeException("Could not set attribute '" + att.getName() + "' of '" + this.type
-                        + "'.", e.getTargetException());
+                        + "'.", t);
             } catch (Exception e) {
                 throw new ValueConversionException("Could not set attribute '" + att.getName() + "' of '" + this.type
                         + "'.", e);
@@ -410,13 +412,13 @@ public class TagDefinition implements Definition, Cloneable {
     }
 
     /**
-     * Check, whether the value supports indexed children.
+     * Checks whether the value supports indexed children.
      *
      * @return true or false
      */
     public boolean supportsIndexedChildren() {
         //TODO Find a better (and working) way to do this check.
-        if (this.type.equals("java.util.ArrayList")) {
+        if (type.equals("java.util.ArrayList")) {
             return true;
         }
         return false;

@@ -5,7 +5,7 @@ import java.lang.reflect.Constructor;
 import net.schst.XJConf.exceptions.ValueConversionException;
 
 /**
- * Class to convert definde classes and set attributes.
+ * Class to convert defined classes and set attributes.
  *
  * @author Daniel Jahnke <daniel.jahnke@1und1.de/>
  */
@@ -17,7 +17,7 @@ public class ClassConverter implements TypeConverter {
 
     public void doInstantiate(String clsName, ClassLoader loader) throws Exception {
         instanceClass = Class.forName(clsName, true, loader);
-        this.className = clsName;
+        className = clsName;
     }
 
     public Object getInstance() {
@@ -45,12 +45,11 @@ public class ClassConverter implements TypeConverter {
                 // try to instantiate the class without using
                 // a constructor
                 objectInstance = instanceClass.newInstance();
-            } catch (Exception e2) {
-                throw new ValueConversionException("Could not create instance of " + this.className, e2);
+            } catch (Exception t) {
+                throw new ValueConversionException("Could not create instance of " + className, t);
             }
         }
-        this.instance = objectInstance;
-
+        instance = objectInstance;
     }
 
 }

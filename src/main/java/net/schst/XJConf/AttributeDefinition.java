@@ -1,5 +1,7 @@
 package net.schst.XJConf;
 
+import java.util.Locale;
+
 import net.schst.XJConf.exceptions.MissingAttributeException;
 import net.schst.XJConf.exceptions.ValueConversionException;
 import net.schst.XJConf.exceptions.XJConfException;
@@ -144,8 +146,8 @@ public class AttributeDefinition implements Definition {
      * @return The name of the setter method.
      */
     public String getSetterMethod() {
-        if (this.setter == null) {
-            return "set" + this.name.substring(0, 1).toUpperCase() + this.name.substring(1);
+        if (setter == null) {
+            return "set" + name.substring(0, 1).toUpperCase(Locale.ENGLISH) + name.substring(1);
         }
         return this.setter;
     }
