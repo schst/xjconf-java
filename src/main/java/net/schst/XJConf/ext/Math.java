@@ -1,7 +1,5 @@
 package net.schst.XJConf.ext;
 
-import java.util.ArrayList;
-
 import net.schst.XJConf.Extension;
 import net.schst.XJConf.GenericTag;
 import net.schst.XJConf.Tag;
