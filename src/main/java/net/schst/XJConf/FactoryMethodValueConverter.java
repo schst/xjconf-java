@@ -15,7 +15,7 @@ public class FactoryMethodValueConverter implements ValueConverter {
     private String method;
 
     public FactoryMethodValueConverter(String name, String method) {
-        this.className = name;
+        className = name;
         this.method = method;
     }
 
@@ -28,27 +28,27 @@ public class FactoryMethodValueConverter implements ValueConverter {
 
         // try to get the class object
         try {
-            instanceClass = Class.forName(this.className, true, loader);
+            instanceClass = Class.forName(className, true, loader);
         } catch (Exception e) {
-            throw new ValueConversionException("Class " + this.className + " does not exist", e);
+            throw new ValueConversionException("Class " + className + " does not exist", e);
         }
         // try to create a new instance
         try {
             Method methode;
             try {
-                methode = instanceClass.getMethod(this.method, types);
+                methode = instanceClass.getMethod(method, types);
             } catch (NoSuchMethodException e) {
                 // try to convert the values to a string
                 for (int i = 0; i < types.length; i++) {
                     types[i] = String.class;
                     values[i] = values[0].toString();
                 }
-                methode = instanceClass.getMethod(this.method, types);
+                methode = instanceClass.getMethod(method, types);
             }
             instance = methode.invoke(null, values);
         } catch (Exception e) {
-            throw new ValueConversionException("Could not create instance of " + this.className
-                    + " using the factory method " + this.method, e);
+            throw new ValueConversionException("Could not create instance of " + className
+                    + " using the factory method " + method, e);
         }
         return instance;
     }
@@ -57,6 +57,6 @@ public class FactoryMethodValueConverter implements ValueConverter {
      * Get the type of the generated object.
      */
     public Class<?> getType(ClassLoader loader) throws Exception {
-        return Class.forName(this.className, true, loader);
+        return Class.forName(className, true, loader);
     }
 }

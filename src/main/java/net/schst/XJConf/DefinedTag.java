@@ -78,8 +78,8 @@ public class DefinedTag implements Tag {
      * @return       number of childs added
      */
     public int addChild(Tag child) {
-        this.children.add(child);
-        return this.children.size();
+        children.add(child);
+        return children.size();
     }
 
     /**
@@ -87,8 +87,8 @@ public class DefinedTag implements Tag {
      */
     public int addData(char[] buf, int offset, int len) {
         String s = new String(buf, offset, len);
-        this.data.append(s);
-        return this.data.length();
+        data.append(s);
+        return data.length();
     }
 
     /**
@@ -98,7 +98,7 @@ public class DefinedTag implements Tag {
      * @return true or false
      */
     public boolean hasAttribute(String strName) {
-        return this.atts.containsKey(strName);
+        return atts.containsKey(strName);
     }
 
     /**
@@ -117,7 +117,7 @@ public class DefinedTag implements Tag {
      * @return   children
      */
     public ArrayList<Tag> getChildren() {
-        return this.children;
+        return children;
     }
 
     /**
@@ -141,7 +141,7 @@ public class DefinedTag implements Tag {
      * @return   name of the tag
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -150,7 +150,7 @@ public class DefinedTag implements Tag {
      * @return   character data
      */
     public String getData() {
-        return this.data.toString().trim();
+        return data.toString().trim();
     }
 
     /**
@@ -159,7 +159,7 @@ public class DefinedTag implements Tag {
      * @param definition
      */
     public void setDefinition(TagDefinition definition) {
-        this.def = definition;
+        def = definition;
     }
 
     /**
@@ -168,7 +168,7 @@ public class DefinedTag implements Tag {
      * @return def
      */
     public TagDefinition getDefinition() {
-        return this.def;
+        return def;
     }
 
     /**
@@ -177,7 +177,7 @@ public class DefinedTag implements Tag {
      * @return  converted value
      */
     public Object getConvertedValue(ClassLoader loader) throws ValueConversionException {
-        return this.def.convertValue(this, loader);
+        return def.convertValue(this, loader);
     }
 
     /**
@@ -186,7 +186,7 @@ public class DefinedTag implements Tag {
      * @return  Class object
      */
     public Class<?> getValueType(Tag tag, ClassLoader loader) {
-        return this.def.getValueType(tag, loader);
+        return def.getValueType(tag, loader);
     }
 
     /**
@@ -196,11 +196,11 @@ public class DefinedTag implements Tag {
      * @return   key for the tag
      */
     public String getKey() {
-        return this.def.getKey(this);
+        return def.getKey(this);
     }
 
     public String getSetterMethod() {
-        return this.def.getSetterMethod();
+        return def.getSetterMethod();
     }
 
     public void setContent(Object content) {
@@ -208,27 +208,27 @@ public class DefinedTag implements Tag {
     }
 
     public Object getContent() {
-        if (this.content != null) {
-            return this.content;
+        if (content != null) {
+            return content;
         }
-        return this.getData();
+        return getData();
     }
 
     public boolean supportsIndexedChildren() {
-        return this.def.supportsIndexedChildren();
+        return def.supportsIndexedChildren();
     }
 
     /**
      * Validate the tag against the definition.
      */
     public boolean validate() throws XJConfException {
-        for (String attributeName : this.atts.keySet()) {
-            if (attributeName.equals(this.def.getNameAttribute())) {
+        for (String attributeName : atts.keySet()) {
+            if (attributeName.equals(def.getNameAttribute())) {
                 continue;
             }
-            if (!this.def.hasAttributeDefinition(attributeName)) {
+            if (!def.hasAttributeDefinition(attributeName)) {
                 throw new UnknownAttributeException("The attribute " + attributeName
-                        + " has not been defined for the tag " + this.def.getTagName() + ".");
+                        + " has not been defined for the tag " + def.getTagName() + ".");
             }
         }
         return true;

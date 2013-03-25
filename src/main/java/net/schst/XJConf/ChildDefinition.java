@@ -33,16 +33,16 @@ public class ChildDefinition implements Definition {
      * Get the name.
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
      * Convert the value.
      */
     public Object convertValue(Tag tag, ClassLoader loader) throws ValueConversionException {
-        Tag child = tag.getChild(this.getName());
+        Tag child = tag.getChild(getName());
         if (child == null) {
-            throw new RuntimeException("Child element " + this.getName() + " does not exist");
+            throw new RuntimeException("Child element " + getName() + " does not exist");
         }
         return child.getConvertedValue(loader);
     }
@@ -53,9 +53,9 @@ public class ChildDefinition implements Definition {
      * @return  Class object
      */
     public Class<?> getValueType(Tag tag, ClassLoader loader) {
-        Tag child = tag.getChild(this.getName());
+        Tag child = tag.getChild(getName());
         if (child == null) {
-            throw new RuntimeException("Child element " + this.getName() + " does not exist");
+            throw new RuntimeException("Child element " + getName() + " does not exist");
         }
         return child.getValueType(tag, loader);
     }

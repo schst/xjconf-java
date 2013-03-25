@@ -60,7 +60,7 @@ public class DefinitionParser extends DefaultHandler {
      * @return NamespaceDefinition
      */
     public NamespaceDefinitions parse(String filename) throws XJConfException {
-        return this.parse(new File(filename));
+        return parse(new File(filename));
     }
 
     /**
@@ -95,7 +95,7 @@ public class DefinitionParser extends DefaultHandler {
                 }
             }
         }
-        return this.defs;
+        return defs;
     }
 
     /**
@@ -126,7 +126,7 @@ public class DefinitionParser extends DefaultHandler {
             if (uri == null) {
                 throw new InvalidNamespaceDefinitionException("The <namespace> tag is missing the uri attribute.");
             }
-            this.currentNamespace = uri;
+            currentNamespace = uri;
             return;
         }
 
@@ -147,7 +147,7 @@ public class DefinitionParser extends DefaultHandler {
 
             // The definition extends another definition
             if (atts.getValue("extends") != null) {
-                NamespaceDefinition nsDef = this.defs.getNamespaceDefinition(this.currentNamespace);
+                NamespaceDefinition nsDef = defs.getNamespaceDefinition(currentNamespace);
                 TagDefinition extendedDef = nsDef.getDefinition(atts.getValue("extends"));
                 def = (TagDefinition) extendedDef.clone();
                 def.setName(name);
@@ -179,21 +179,21 @@ public class DefinitionParser extends DefaultHandler {
             if (setter != null) {
                 def.setSetterMethod(setter);
             }
-            this.defStack.push(def);
+            defStack.push(def);
             return;
         }
 
         // define the constructor
         if (qName.equals("constructor")) {
             ConstructorDefinition def = new ConstructorDefinition();
-            this.defStack.push(def);
+            defStack.push(def);
         }
 
         // define the constructor
         if (qName.equals(TAG_FACTORY_METHOD)) {
             // TODO check, whether name has been specified
             FactoryMethodDefinition def = new FactoryMethodDefinition(atts.getValue("name"));
-            this.defStack.push(def);
+            defStack.push(def);
         }
 
 
@@ -210,7 +210,7 @@ public class DefinitionParser extends DefaultHandler {
             if (setter != null) {
                 def.setSetterMethod(setter);
             }
-            this.defStack.push(def);
+            defStack.push(def);
         }
 
         // define a child tag data
@@ -220,13 +220,13 @@ public class DefinitionParser extends DefaultHandler {
                 throw new InvalidTagDefinitionException("The <child> tag is missing the name attribute.");
             }
             ChildDefinition def = new ChildDefinition(name);
-            this.defStack.push(def);
+            defStack.push(def);
         }
 
         // define an attribute
         if (qName.equals("attribute")) {
             // get the current tag
-            Definition def = this.defStack.pop();
+            Definition def = defStack.pop();
             String type = atts.getValue("type");
             if (type == null) {
                 type = atts.getValue("primitive");
@@ -259,8 +259,7 @@ public class DefinitionParser extends DefaultHandler {
             } catch (Exception e) {
                 throw new InvalidTagDefinitionException("Could not register attribute", e);
             }
-            this.defStack.push(def);
-            return;
+            defStack.push(def);
         }
     }
 
@@ -272,13 +271,13 @@ public class DefinitionParser extends DefaultHandler {
     public void endElement(String namespaceURI, String sName, String qName) throws SAXException {
 
         if (qName.equals("namespace")) {
-            this.currentNamespace = DefinitionParser.DEFAULT_NAMESPACE;
+            currentNamespace = DefinitionParser.DEFAULT_NAMESPACE;
         }
 
         // set the constructor
         if (qName.equals("constructor")) {
-            ConstructorDefinition constructorDef = (ConstructorDefinition) this.defStack.pop();
-            TagDefinition tagDef = (TagDefinition) this.defStack.peek();
+            ConstructorDefinition constructorDef = (ConstructorDefinition) defStack.pop();
+            TagDefinition tagDef = (TagDefinition) defStack.peek();
             try {
                 tagDef.addChildDefinition(constructorDef);
             } catch (Exception e) {
@@ -288,8 +287,8 @@ public class DefinitionParser extends DefaultHandler {
 
         // set the factory method
         if (qName.equals(TAG_FACTORY_METHOD)) {
-            FactoryMethodDefinition factoryDef = (FactoryMethodDefinition) this.defStack.pop();
-            TagDefinition tagDef = (TagDefinition) this.defStack.peek();
+            FactoryMethodDefinition factoryDef = (FactoryMethodDefinition) defStack.pop();
+            TagDefinition tagDef = (TagDefinition) defStack.peek();
             try {
                 tagDef.addChildDefinition(factoryDef);
             } catch (Exception e) {
@@ -300,8 +299,8 @@ public class DefinitionParser extends DefaultHandler {
 
         // set the cdata handling
         if (qName.equals("cdata")) {
-            CDataDefinition cdataDef = (CDataDefinition) this.defStack.pop();
-            Definition parentDef = this.defStack.peek();
+            CDataDefinition cdataDef = (CDataDefinition) defStack.pop();
+            Definition parentDef = defStack.peek();
             try {
                 parentDef.addChildDefinition(cdataDef);
             } catch (Exception e) {
@@ -311,8 +310,8 @@ public class DefinitionParser extends DefaultHandler {
 
         // set the child handling
         if (qName.equals("child")) {
-            ChildDefinition childDef = (ChildDefinition) this.defStack.pop();
-            Definition parentDef = this.defStack.peek();
+            ChildDefinition childDef = (ChildDefinition) defStack.pop();
+            Definition parentDef = defStack.peek();
             try {
                 parentDef.addChildDefinition(childDef);
             } catch (Exception e) {
@@ -321,12 +320,12 @@ public class DefinitionParser extends DefaultHandler {
         }
 
         if (qName.equals("tag")) {
-            TagDefinition def = (TagDefinition) this.defStack.pop();
+            TagDefinition def = (TagDefinition) defStack.pop();
 
-            if (!this.defs.isNamespaceDefined(this.currentNamespace)) {
-                this.defs.addNamespaceDefinition(this.currentNamespace, new NamespaceDefinition(this.currentNamespace));
+            if (!defs.isNamespaceDefined(currentNamespace)) {
+                defs.addNamespaceDefinition(currentNamespace, new NamespaceDefinition(currentNamespace));
             }
-            NamespaceDefinition nsDef = this.defs.getNamespaceDefinition(this.currentNamespace);
+            NamespaceDefinition nsDef = defs.getNamespaceDefinition(currentNamespace);
             nsDef.addTagDefinition(def);
         }
     }

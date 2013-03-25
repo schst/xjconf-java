@@ -18,28 +18,28 @@ public class XmlReaderGetTest {
     @Before
     public void setUp() throws Exception {
         NamespaceDefinitions defs =
-                this.parser.parse("src/test/resources/tests/defines/PrimitiveAttributesTestCase.xml");
-        this.xmlReader.addTagDefinitions(defs);
+                parser.parse("src/test/resources/tests/defines/PrimitiveAttributesTestCase.xml");
+        xmlReader.addTagDefinitions(defs);
 
-        this.xmlReader.parse("src/test/resources/tests/xml/PrimitiveAttributesTestCase.xml");
+        xmlReader.parse("src/test/resources/tests/xml/PrimitiveAttributesTestCase.xml");
     }
 
     @Test
     public void testWithClass() throws Exception {
-        PrimitivesContainer container = this.xmlReader.get("container", PrimitivesContainer.class);
+        PrimitivesContainer container = xmlReader.get("container", PrimitivesContainer.class);
         Assert.assertNotNull(container);
     }
 
     @Test
     public void testWithInterface() throws Exception {
-        IPrimitivesContainer container = this.xmlReader.get("container", IPrimitivesContainer.class);
+        IPrimitivesContainer container = xmlReader.get("container", IPrimitivesContainer.class);
         Assert.assertNotNull(container);
         Assert.assertTrue(container instanceof PrimitivesContainer);
     }
 
     @Test
     public void testWithSuperclass() throws Exception {
-        Object container = this.xmlReader.get("container", Object.class);
+        Object container = xmlReader.get("container", Object.class);
         Assert.assertNotNull(container);
         Assert.assertTrue(container instanceof PrimitivesContainer);
         Assert.assertTrue(container instanceof IPrimitivesContainer);
