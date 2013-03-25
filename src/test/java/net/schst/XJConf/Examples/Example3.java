@@ -23,7 +23,7 @@ public final class Example3 {
         File defines = new File("src/test/resources/xml/defines3.xml");
         NamespaceDefinitions defs = tagParser.parse(defines);
 
-        Set namespaces = defs.getDefinedNamespaces();
+        Set<String> namespaces = defs.getDefinedNamespaces();
 
         System.out.println("Defined namespaces:");
         System.out.println(namespaces);

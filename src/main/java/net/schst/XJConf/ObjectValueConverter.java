@@ -36,7 +36,6 @@ public class ObjectValueConverter implements ValueConverter {
      * @param types     Types of the values
      * @param loader    classloader to use
      */
-    @SuppressWarnings("unchecked")
     public Object convertValue(Object[] values, Class<?>[] types, ClassLoader loader) throws ValueConversionException {
         Class<?> instanceClass;
         TypeConverter typeConverter;

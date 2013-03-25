@@ -15,6 +15,8 @@ import net.schst.XJConf.io.FileSource;
 import net.schst.XJConf.io.Source;
 import net.schst.XJConf.io.StreamSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -25,6 +27,8 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author Stephan Schmidt <stephan.schmidt@schlund.de/>
  */
 public class DefinitionParser extends DefaultHandler {
+
+    private static final Logger LOG = LoggerFactory.getLogger(DefinitionParser.class);
 
     private static final String TAG_FACTORY_METHOD = "factoryMethod";
 
@@ -49,11 +53,11 @@ public class DefinitionParser extends DefaultHandler {
     private NamespaceDefinitions defs = new NamespaceDefinitions();
 
     /**
-     * parse a tag definitions file and return
-     * an instance of NamespaceDefinition.
+     * parse a tag definitions file and return an instance of NamespaceDefinition.
      *
-     * @param    filename    filename of the defintions file
-     * @return   NamespaceDefinition
+     * @param filename
+     *            filename of the defintions file
+     * @return NamespaceDefinition
      */
     public NamespaceDefinitions parse(String filename) throws XJConfException {
         return parse(new File(filename));
@@ -62,8 +66,9 @@ public class DefinitionParser extends DefaultHandler {
     /**
      * parse a tag defintion file.
      *
-     * @param    file     File object that will be parsed
-     * @return   NamespaceDefinition
+     * @param file
+     *            File object that will be parsed
+     * @return NamespaceDefinition
      */
     public NamespaceDefinitions parse(File file) throws XJConfException {
         return parse(new FileSource(file));
@@ -85,7 +90,8 @@ public class DefinitionParser extends DefaultHandler {
                 try {
                     stream.close();
                 } catch (IOException e) {
-                    //intentionally swallow exception
+                    // Cannot handle
+                    LOG.error("Cannot close InputStream.", e);
                 }
             }
         }
@@ -95,8 +101,9 @@ public class DefinitionParser extends DefaultHandler {
     /**
      * parse a tag defintion file.
      *
-     * @param    inputStream     InputStream that will be parsed
-     * @return   NamespaceDefinition
+     * @param inputStream
+     *            InputStream that will be parsed
+     * @return NamespaceDefinition
      */
     public NamespaceDefinitions parse(InputStream inputStream) throws XJConfException {
         return parse("generic", inputStream);
@@ -109,8 +116,7 @@ public class DefinitionParser extends DefaultHandler {
     /**
      * Start Element handler
      *
-     * Creates the TagDefinition object and places it on
-     * the stack.
+     * Creates the TagDefinition object and places it on the stack.
      */
     public void startElement(String namespaceURI, String sName, String qName, Attributes atts) throws SAXException {
 
@@ -141,8 +147,7 @@ public class DefinitionParser extends DefaultHandler {
 
             // The definition extends another definition
             if (atts.getValue("extends") != null) {
-                NamespaceDefinition nsDef =
-                        (NamespaceDefinition) defs.getNamespaceDefinition(currentNamespace);
+                NamespaceDefinition nsDef = defs.getNamespaceDefinition(currentNamespace);
                 TagDefinition extendedDef = nsDef.getDefinition(atts.getValue("extends"));
                 def = (TagDefinition) extendedDef.clone();
                 def.setName(name);
@@ -186,7 +191,7 @@ public class DefinitionParser extends DefaultHandler {
 
         // define the constructor
         if (qName.equals(TAG_FACTORY_METHOD)) {
-            //TODO check, whether name has been specified
+            // TODO check, whether name has been specified
             FactoryMethodDefinition def = new FactoryMethodDefinition(atts.getValue("name"));
             defStack.push(def);
         }
@@ -221,7 +226,7 @@ public class DefinitionParser extends DefaultHandler {
         // define an attribute
         if (qName.equals("attribute")) {
             // get the current tag
-            Definition def = (Definition) defStack.pop();
+            Definition def = defStack.pop();
             String type = atts.getValue("type");
             if (type == null) {
                 type = atts.getValue("primitive");
@@ -261,8 +266,7 @@ public class DefinitionParser extends DefaultHandler {
     /**
      * End Element handler.
      *
-     * Fetches the TagDefinition from the stack and
-     * adds it to the NamespaceDefinition object.
+     * Fetches the TagDefinition from the stack and adds it to the NamespaceDefinition object.
      */
     public void endElement(String namespaceURI, String sName, String qName) throws SAXException {
 
@@ -296,7 +300,7 @@ public class DefinitionParser extends DefaultHandler {
         // set the cdata handling
         if (qName.equals("cdata")) {
             CDataDefinition cdataDef = (CDataDefinition) defStack.pop();
-            Definition parentDef = (Definition) defStack.peek();
+            Definition parentDef = defStack.peek();
             try {
                 parentDef.addChildDefinition(cdataDef);
             } catch (Exception e) {
@@ -307,7 +311,7 @@ public class DefinitionParser extends DefaultHandler {
         // set the child handling
         if (qName.equals("child")) {
             ChildDefinition childDef = (ChildDefinition) defStack.pop();
-            Definition parentDef = (Definition) defStack.peek();
+            Definition parentDef = defStack.peek();
             try {
                 parentDef.addChildDefinition(childDef);
             } catch (Exception e) {
@@ -321,8 +325,9 @@ public class DefinitionParser extends DefaultHandler {
             if (!defs.isNamespaceDefined(currentNamespace)) {
                 defs.addNamespaceDefinition(currentNamespace, new NamespaceDefinition(currentNamespace));
             }
-            NamespaceDefinition nsDef = (NamespaceDefinition) defs.getNamespaceDefinition(currentNamespace);
+            NamespaceDefinition nsDef = defs.getNamespaceDefinition(currentNamespace);
             nsDef.addTagDefinition(def);
         }
     }
+
 }

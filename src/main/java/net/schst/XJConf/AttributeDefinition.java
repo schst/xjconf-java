@@ -1,5 +1,7 @@
 package net.schst.XJConf;
 
+import java.util.Locale;
+
 import net.schst.XJConf.exceptions.MissingAttributeException;
 import net.schst.XJConf.exceptions.ValueConversionException;
 import net.schst.XJConf.exceptions.XJConfException;
@@ -7,14 +9,10 @@ import net.schst.XJConf.exceptions.XJConfException;
 /**
  * Definition container of an attribute.
  *
- * This class is used to store information on how
- * an attribute of a specific tag should be handled.
+ * This class is used to store information on how an attribute of a specific tag should be handled.
  *
- * Options include
- * - Type of the Attribute
- * - Default value for non-existent attributes
- * - Setter method to set the attribute
- * - Whether the attribute is required, or not
+ * Options include - Type of the Attribute - Default value for non-existent attributes - Setter method to set the
+ * attribute - Whether the attribute is required, or not
  *
  * @author Stephan Schmidt <stephan.schmidt@schlund.de/>
  */
@@ -51,11 +49,12 @@ public class AttributeDefinition implements Definition {
     private ValueConverter vConverter;
 
     /**
-     * create a new attribute definition for a String attribute.
+     * Creates a new AttributeDefinition for a String attribute.
      *
-     * @param    name of the attribute
+     * @param name
+     *            The attribute's name.
      */
-    public AttributeDefinition(String name) throws XJConfException {
+    public AttributeDefinition(final String name) throws XJConfException {
 
         if (name == null) {
             throw new XJConfException("TagDefinition needs a name.");
@@ -66,12 +65,14 @@ public class AttributeDefinition implements Definition {
     }
 
     /**
-     * Create a new AttributeDefinition for any other type.
+     * Creates a new AttributeDefinition for specified type.
      *
-     * @param    name of the attribute
-     * @param    type of the attribute
+     * @param name
+     *            The attribute's name.
+     * @param type
+     *            The attribute's type.
      */
-    public AttributeDefinition(String name, String type) throws XJConfException {
+    public AttributeDefinition(final String name, final String type) throws XJConfException {
         if (name == null) {
             throw new XJConfException("AttributeDefinition needs a name.");
         }
@@ -90,114 +91,120 @@ public class AttributeDefinition implements Definition {
     }
 
     /**
-     * Set the default value for the attribute.
+     * Sets the attribute's default value to be used when a tag does not provide the attribute.
      *
-     * @param    aDefaultValue   default value that will be used, if a tag does not provide the attribute
-     * @see      getDefault()
+     * @param aDefaultValue
+     *            The attribute's default value.
      */
-    public void setDefault(String aDefaultValue) {
+    public void setDefault(final String aDefaultValue) {
         defaultValue = aDefaultValue;
     }
 
     /**
-     * Get the default value of the attribute.
+     * Gets the attribute's default value.
      *
-     * @return    default value of the attribute
-     * @see       setDefault()
+     * @return The attribute's default value.
      */
     public String getDefault() {
         return defaultValue;
     }
 
     /**
-     * @return Returns the required.
+     * Denotes wether the attribute is required.
+     *
+     * @return The attribute's required state.
      */
     public boolean isRequired() {
         return required;
     }
+
     /**
-     * @param required The required to set.
+     * Sets the attribute's required state.
+     *
+     * @param isRequired
+     *            The attribute's required state.
      */
-    public void setRequired(boolean required) {
-        this.required = required;
+    public void setRequired(final boolean isRequired) {
+        required = isRequired;
     }
 
     /**
-     * Set the setter method.
+     * Sets the setter method.
      *
-     * If no setter method is specified, the standard
-     * name "setAttributename()" will be used instead.
+     * If no setter method is specified, the standard name "setAttributename()" will be used instead.
      *
-     * @param    aSetter    name of the setter method
-     * @see      getSetterMethod()
+     * @param aSetter
+     *            The name of the setter method.
      */
-    public void setSetterMethod(String aSetter) {
+    public void setSetterMethod(final String aSetter) {
         setter = aSetter;
     }
 
     /**
-     * Get the name of the setter method that should be used
-     * to set the attribute value in the parent container.
+     * Gets the name of the setter method to be used to set the attribute value in the parent container.
      *
-     * @return   name of the setter method
-     * @see      setSetterMethod()
+     * @return The name of the setter method.
      */
     public String getSetterMethod() {
         if (setter == null) {
-            return "set" + name.substring(0, 1).toUpperCase() + name.substring(1);
+            return "set" + name.substring(0, 1).toUpperCase(Locale.ENGLISH) + name.substring(1);
         }
         return setter;
     }
 
     /**
-     * Get the name of the attribute.
+     * Gets the name of the attribute.
      *
-     * @return   name of the attribute
+     * @return The attribute's name.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Get the type of the attribute.
+     * Gets the type of the attribute.
      *
-     * @return  Class object
+     * @param tag
+     *            The tag this attribute belongs to.
+     * @param loader
+     *            A Classloader to be passed to the ValueConverter.
+     * @return Class object denoting the attributes type.
      */
-    public Class<?> getValueType(Tag tag, ClassLoader loader) {
+    public Class<?> getValueType(final Tag tag, final ClassLoader loader) {
         try {
             return vConverter.getType(loader);
         } catch (Exception e) {
-            throw new RuntimeException("Could not return type.");
+            throw new RuntimeException("Could not return type.", e);
         }
     }
 
     /**
-     * Get the type of the attribute.
+     * Gets the type of the attribute.
      *
-     * @return   type of the attribute
+     * @return The attribute's type as String.
      */
     public String getType() {
         return type;
     }
 
     /**
-     * Convert a value to the defined type.
+     * Converts a value to the defined type.
      *
-     * The value you pass in will be cast to a
-     * String before it is converted to the defined
-     * type.
+     * The value you pass in will be cast to a String before it is converted to the defined type.
      *
-     * The type of the returned value can be specified in
-     * the constructor using the type argument.
+     * The type of the returned value can be specified in the constructor using the type argument.
      *
-     * @param    val   value to convert
-     * @return         converted value
+     * @param tag
+     *            The tag this attribute belongs to.
+     * @param loader
+     *            A Classloader to be passed to the ValueConverter.
+     * @return The converted value.
      * @throws ValueConversionException
      */
-    public Object convertValue(Tag tag, ClassLoader loader) throws ValueConversionException {
+    public Object convertValue(final Tag tag, final ClassLoader loader) throws ValueConversionException {
         String value;
 
-        if (tag.hasAttribute(getName())) {
+        if (tag.hasAttribute(name)) {
             value = tag.getAttribute(name);
         } else {
             value = getDefault();
@@ -220,9 +227,7 @@ public class AttributeDefinition implements Definition {
     }
 
     /**
-     * Add a child definition.
-     *
-     * Attributes cannot have any children.
+     * Does nothing, since attributes cannot have any children.
      */
     public void addChildDefinition(Definition def) throws Exception {
     }

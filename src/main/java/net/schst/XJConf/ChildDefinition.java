@@ -72,4 +72,5 @@ public class ChildDefinition implements Definition {
      */
     public void addChildDefinition(Definition def) throws Exception {
     }
+
 }

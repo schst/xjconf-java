@@ -92,23 +92,23 @@ public class DefinedTag implements Tag {
     }
 
     /**
-     * Check, whether the tag has a certain attribute.
+     * Checks whether the tag has a certain attribute.
      *
      * @param strName
-     * @return
+     * @return true or false
      */
     public boolean hasAttribute(String strName) {
         return atts.containsKey(strName);
     }
 
     /**
-     * Get an attribute.
+     * Gets an attribute.
      *
      * @param    strName of the attribute
      * @return   value of the attribute
      */
     public String getAttribute(String strName) {
-        return (String) atts.get(strName);
+        return atts.get(strName);
     }
 
     /**
@@ -121,10 +121,10 @@ public class DefinedTag implements Tag {
     }
 
     /**
-     * Get the child with a specific name.
+     * Gets the child with a specific name.
      *
      * @param strName
-     * @return
+     * @return The specified child tag.
      */
     public Tag getChild(String strName) {
         for (Tag child : children) {

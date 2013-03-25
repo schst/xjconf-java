@@ -35,13 +35,12 @@ public class URLSource implements Source {
     public boolean exists() {
         if (handle != null && handle.hasStream()) {
             return true;
-        } else {
-            try {
-                handle = openLocation();
-                return true;
-            } catch (IOException e) {
-                return false;
-            }
+        }
+        try {
+            handle = openLocation();
+            return true;
+        } catch (IOException e) {
+            return false;
         }
     }
 
@@ -52,11 +51,10 @@ public class URLSource implements Source {
         if (handle != null && handle.hasStream() && !handle.isUsed()) {
             handle.setUsed(true);
             return handle;
-        } else {
-            handle = openLocation();
-            handle.setUsed(true);
-            return handle;
         }
+        handle = openLocation();
+        handle.setUsed(true);
+        return handle;
     }
 
     public String getName() {

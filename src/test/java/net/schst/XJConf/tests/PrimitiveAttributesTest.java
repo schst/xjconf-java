@@ -17,15 +17,22 @@ public class PrimitiveAttributesTest {
 
     @Before
     public void setUp() throws Exception {
+<<<<<<< HEAD
         NamespaceDefinitions defs =
                 parser.parse("src/test/resources/tests/defines/PrimitiveAttributesTestCase.xml");
         xmlReader.addTagDefinitions(defs);
+=======
+        NamespaceDefinitions defs = this.parser
+                .parse("src/test/resources/tests/defines/PrimitiveAttributesTestCase.xml");
+        this.xmlReader.addTagDefinitions(defs);
+>>>>>>> 430a9d8b1843787a6d1e906f4f5d36aec68d680b
 
         xmlReader.parse("src/test/resources/tests/xml/PrimitiveAttributesTestCase.xml");
         container = (PrimitivesContainer) xmlReader.getConfigValue("container");
     }
 
     @Test
+<<<<<<< HEAD
     public void testBooleanValue() throws Exception {
         Assert.assertTrue(container.getBooleanValue());
     }
@@ -53,6 +60,35 @@ public class PrimitiveAttributesTest {
     @Test
     public void testShortValue() throws Exception {
         Assert.assertEquals(-34, container.getShortValue());
+=======
+    public void testBooleanValue() {
+        Assert.assertTrue(this.container.getBooleanValue());
+    }
+
+    @Test
+    public void testIntValue() {
+        Assert.assertEquals(15, this.container.getIntValue());
+    }
+
+    @Test
+    public void testLongValue() {
+        Assert.assertEquals(42, this.container.getLongValue());
+    }
+
+    @Test
+    public void testFloatValue() {
+        Assert.assertEquals(12.34f, this.container.getFloatValue(), 0.0001);
+    }
+
+    @Test
+    public void testDoubleValue() {
+        Assert.assertEquals(12.34d, this.container.getDoubleValue(), 0.0001);
+    }
+
+    @Test
+    public void testShortValue() {
+        Assert.assertEquals(-34, this.container.getShortValue());
+>>>>>>> 430a9d8b1843787a6d1e906f4f5d36aec68d680b
     }
 
 }

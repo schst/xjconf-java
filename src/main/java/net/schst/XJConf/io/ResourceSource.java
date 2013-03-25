@@ -110,9 +110,8 @@ public class ResourceSource implements Source {
         String path = location.getPath();
         if (path.startsWith("/")) {
             return path.substring(1);
-        } else {
-            return path;
         }
+        return path;
     }
 
     /**

@@ -4,6 +4,8 @@ public enum Rgb {
 
     RED(255, 0, 0), GREEN(0, 255, 0), BLUE(0, 0, 255);
 
+    @SuppressWarnings("unused")
     Rgb(int rValue, int gValue, int bValue) {
     }
+
 }

@@ -26,7 +26,7 @@ public final class ExampleIncludeTest extends XIncludeFixture {
     }
 
     @Theory
-    public void testInclusion(String filename) throws XJConfException {
+    public void testInclusion(String filename) {
         try {
             xmlReader.parse(filename);
         } catch (Exception e) {

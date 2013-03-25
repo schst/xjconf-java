@@ -2,11 +2,11 @@ package net.schst.XJConf;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.xml.sax.Attributes;
+import java.util.Locale;
 
 import net.schst.XJConf.exceptions.ValueConversionException;
-import net.schst.XJConf.exceptions.XJConfException;
+
+import org.xml.sax.Attributes;
 
 /**
  * Generic Tag wrapper that can be used by extensions to dynamically add
@@ -17,12 +17,12 @@ import net.schst.XJConf.exceptions.XJConfException;
 public class GenericTag implements Tag {
 
     /**
-     * name of the tag.
+     * Name of the tag.
      */
     private String name = null;
 
     /**
-     * character data.
+     * Character data.
      */
     private StringBuffer data = new StringBuffer();
 
@@ -32,7 +32,7 @@ public class GenericTag implements Tag {
     private Object content = null;
 
     /**
-     * attributes of the tag.
+     * Attributes of the tag.
      */
     private HashMap<String, String> atts = new HashMap<String, String>();
 
@@ -52,7 +52,7 @@ public class GenericTag implements Tag {
     private String key = null;
 
     /**
-     * Create a new tag without attributes.
+     * Creates a new tag without attributes.
      *
      * @param name   name of the tag
      */
@@ -61,22 +61,22 @@ public class GenericTag implements Tag {
     }
 
     /**
-     * Create a new tag with attributes.
+     * Creates a new tag with attributes.
      *
      * @param name   name of the tag
-     * @param atts   attributes of the tag
+     * @param attributes   attributes of the tag
      */
-    public GenericTag(String name, Attributes atts) {
+    public GenericTag(String name, Attributes attributes) {
         this.name = name;
 
         // store attributes in a HashMap
-        for (int i = 0; i < atts.getLength(); i++) {
-            this.atts.put(atts.getQName(i), atts.getValue(i));
+        for (int i = 0; i < attributes.getLength(); i++) {
+            atts.put(attributes.getQName(i), attributes.getValue(i));
         }
     }
 
     /**
-     * Add text data.
+     * Adds text data.
      */
     public int addData(char[] buf, int offset, int len) {
         String s = new String(buf, offset, len);
@@ -85,27 +85,27 @@ public class GenericTag implements Tag {
     }
 
     /**
-     * Check, whether the tag has a certain attribute.
+     * Checks whether the tag has a certain attribute.
      *
      * @param aName
-     * @return
+     * @return true or false
      */
     public boolean hasAttribute(String aName) {
         return atts.containsKey(aName);
     }
 
     /**
-     * get an attribute.
+     * Gets an attribute.
      *
-     * @param    aName of the attribute
+     * @param    attName of the attribute
      * @return   value of the attribute
      */
-    public String getAttribute(String aName) {
-        return (String) atts.get(aName);
+    public String getAttribute(String attName) {
+        return atts.get(attName);
     }
 
     /**
-     * Get all children of the tag.
+     * Gets all children of the tag.
      *
      * @return   children
      */
@@ -114,10 +114,10 @@ public class GenericTag implements Tag {
     }
 
     /**
-     * Get the child with a specific name.
+     * Gets the child with a specific name.
      *
      * @param aName
-     * @return
+     * @return The specified child tag.
      */
     public Tag getChild(String aName) {
         for (Tag child : children) {
@@ -129,16 +129,16 @@ public class GenericTag implements Tag {
     }
 
     /**
-     * Get the name of the tag.
+     * Gets the name of the tag.
      *
-     * @return   name of the tag
+     * @return name of the tag
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Get the character data of the tag.
+     * Gets the character data of the tag.
      *
      * @return   character data
      */
@@ -147,10 +147,10 @@ public class GenericTag implements Tag {
     }
 
     /**
-     * Add a new child to this tag.
+     * Adds a new child to this tag.
      *
      * @param child  child to add
-     * @return       number of childs added
+     * @return       number of children
      */
     public int addChild(Tag child) {
         children.add(child);
@@ -158,24 +158,24 @@ public class GenericTag implements Tag {
     }
 
     /**
-     * Fetch the value.
+     * Fetches the value.
      *
      * @param loader
-     * @retun the value of the tag
+     * @return the value of the tag
      */
     public Object getConvertedValue(ClassLoader loader) throws ValueConversionException {
         return value;
     }
 
     /**
-     * Get the key under which the value will be stored.
+     * Gets the key under which the value will be stored.
      */
     public String getKey() {
         return key;
     }
 
     /**
-     * Set the value of the tag.
+     * Sets the value of the tag.
      *
      * @param value
      */
@@ -184,7 +184,7 @@ public class GenericTag implements Tag {
     }
 
     /**
-     * Get the type of the value.
+     * Gets the type of the value.
      */
     public Class<?> getValueType(Tag tag, ClassLoader loader) {
         if (value == null) {
@@ -194,7 +194,7 @@ public class GenericTag implements Tag {
     }
 
     /**
-     * Set the key.
+     * Sets the key.
      *
      * @param key
      */
@@ -203,24 +203,24 @@ public class GenericTag implements Tag {
     }
 
     /**
-     * Get the setter method.
+     * Gets the setter method.
      */
     public String getSetterMethod() {
         if (key == null) {
             return null;
         }
-        return "set" + key.substring(0, 1).toUpperCase() + key.substring(1);
+        return "set" + key.substring(0, 1).toUpperCase(Locale.ENGLISH) + key.substring(1);
     }
 
     /**
-     * Set the content (overrides the character data).
+     * Sets the content (overrides the character data).
      */
     public void setContent(Object content) {
         this.content = content;
     }
 
     /**
-     * Get the content.
+     * Gets the content.
      */
     public Object getContent() {
         if (content != null) {
@@ -230,13 +230,14 @@ public class GenericTag implements Tag {
     }
 
     /**
-     * Checks, whether the tag supports indexed children.
+     * Checks whether the tag supports indexed children.
      */
     public boolean supportsIndexedChildren() {
         return true;
     }
 
-    public boolean validate() throws XJConfException {
+    public boolean validate() {
         return true;
     }
+
 }

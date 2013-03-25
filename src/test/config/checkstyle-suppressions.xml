@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+"-//Puppy Crawl//DTD Suppressions 1.0//EN"
+"http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
+
+<suppressions>
+
+  <suppress checks="CyclomaticComplexityCheck"
+            files="DefinitionParser.java"
+            lines="121, 272"/>
+  <suppress checks="CyclomaticComplexityCheck"
+            files="PrimitiveValueConverter.java"
+            lines="28"/>
+  <suppress checks="CyclomaticComplexityCheck"
+            files="XmlReader.java"
+            lines="371"/>
+  <suppress checks="CyclomaticComplexityCheck"
+            files="TagDefinition.java"
+            lines="335"/>
+
+</suppressions>

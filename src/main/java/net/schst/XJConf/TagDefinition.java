@@ -8,6 +8,7 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import net.schst.XJConf.exceptions.ValueConversionException;
@@ -101,27 +102,25 @@ public class TagDefinition implements Definition, Cloneable {
     }
 
     /**
-     * set the name of the value.
-     *
-     * @return   name of the value
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Set the name of the tag.
+     * Sets the name of the value.
      *
      * @param aName
      */
-    public void setTagName(String aName) {
-        tagName = aName;
+    public void setName(String aName) {
+        name = aName;
     }
 
     /**
-     * Set the attribute that will be used as key.
+     * Sets the name of the tag.
      *
-     * @return   name of the value
+     * @param aTagName
+     */
+    public void setTagName(String aTagName) {
+        tagName = aTagName;
+    }
+
+    /**
+     * Sets the attribute that will be used as key.
      */
     public void setKeyAttribute(String att) {
         name = "__attribute";
@@ -190,7 +189,7 @@ public class TagDefinition implements Definition, Cloneable {
     }
 
     /**
-     * Get the name of the setter method that should be used.
+     * Gets the name of the setter method that should be used.
      *
      * @return         name of the setter method
      */
@@ -202,11 +201,11 @@ public class TagDefinition implements Definition, Cloneable {
         if (name.equals("__none")) {
             return null;
         }
-        return "set" + name.substring(0, 1).toUpperCase() + name.substring(1);
+        return "set" + name.substring(0, 1).toUpperCase(Locale.ENGLISH) + name.substring(1);
     }
 
     /**
-     * Convert the value of the tag.
+     * Converts the value of the tag.
      *
      * @param tag      tag that will be converted
      * @param loader   ClassLoader that should be used for loading new classes
@@ -245,7 +244,7 @@ public class TagDefinition implements Definition, Cloneable {
 
         // get all values and their types
         for (int i = 0; i < conParams.size(); i++) {
-            paramDef = (Definition) conParams.get(i);
+            paramDef = conParams.get(i);
             cParams[i] = paramDef.convertValue(tag, loader);
             cParamTypes[i] = paramDef.getValueType(tag, loader);
         }
@@ -272,7 +271,7 @@ public class TagDefinition implements Definition, Cloneable {
         // set all attributes
         String methodName = null;
         for (AttributeDefinition att : atts) {
-
+            // get the attribute definition
             Object val = att.convertValue(tag, loader);
 
             // attribute has not been set and there is no
@@ -294,10 +293,10 @@ public class TagDefinition implements Definition, Cloneable {
                         try {
                             Class<?>[] meParamTypes2 = {iface};
                             me = cl.getMethod(methodName, meParamTypes2);
+                            break;
                         } catch (Exception ex) {
                             continue;
                         }
-                        break;
                     }
                 }
 
@@ -305,13 +304,13 @@ public class TagDefinition implements Definition, Cloneable {
 
                 me.invoke(instance, meParams);
             } catch (InvocationTargetException e) {
-                if (e.getTargetException() instanceof Exception) {
+                Throwable t = e.getTargetException();
+                if (t instanceof Exception) {
                     throw new ValueConversionException("Could not set attribute '" + att.getName() + "' of '"
-                            + type + "'.", (Exception) e.getTargetException());
-                } else {
-                    throw new RuntimeException("Could not set attribute '" + att.getName() + "' of '" + type
-                            + "'.", e.getTargetException());
+                            + type + "'.", (Exception) t);
                 }
+                throw new RuntimeException("Could not set attribute '" + att.getName() + "' of '" + this.type
+                        + "'.", t);
             } catch (Exception e) {
                 throw new ValueConversionException("Could not set attribute '" + att.getName() + "' of '" + type
                         + "'.", e);
@@ -352,21 +351,21 @@ public class TagDefinition implements Definition, Cloneable {
             try {
 
                 // Check, whether the current instance is a Properties object
-                if (instance instanceof java.util.Properties) {
-                    String key = (String) child.getKey();
+                if (instance instanceof Properties) {
+                    String key = child.getKey();
 
                     Properties properties = (Properties) instance;
                     properties.setProperty(key, (String) childValue);
 
                     // Check, whether the current instance is a HashMap
-                } else if (instance instanceof java.util.AbstractMap<?, ?>) {
-                    Object oName = (Object) child.getKey();
+                } else if (instance instanceof AbstractMap<?, ?>) {
+                    Object oName = child.getKey();
 
                     AbstractMap<Object, Object> map = (AbstractMap<Object, Object>) instance;
                     map.put(oName, childValue);
 
                     // Check, whether the current instance is a collection
-                } else if (methodName == null && instance instanceof java.util.AbstractCollection<?>) {
+                } else if (methodName == null && instance instanceof AbstractCollection<?>) {
                     AbstractCollection<Object> collection = (AbstractCollection<Object>) instance;
                     collection.add(childValue);
 
@@ -383,10 +382,10 @@ public class TagDefinition implements Definition, Cloneable {
                             try {
                                 Class<?>[] childParamTypes2 = {iface};
                                 childMethod = cl.getMethod(methodName, childParamTypes2);
+                                break;
                             } catch (Exception ex) {
                                 continue;
                             }
-                            break;
                         }
                     }
                     if (childMethod == null) {
@@ -407,7 +406,7 @@ public class TagDefinition implements Definition, Cloneable {
     }
 
     /**
-     * Check, whether the value supports indexed children.
+     * Checks whether the value supports indexed children.
      *
      * @return true or false
      */
@@ -421,7 +420,7 @@ public class TagDefinition implements Definition, Cloneable {
      *
      * @param result
      * @param superClass
-     * @return
+     * @return List of Class objects
      */
     private List<Class<?>> determineAllInterfaces(List<Class<?>> result, Class<?> superClass) {
         Class<?>[] subinterfaces = superClass.getInterfaces();
@@ -460,7 +459,7 @@ public class TagDefinition implements Definition, Cloneable {
     /**
      * Get the value converter for this tag.
      *
-     * @return
+     * @return Lazily created ValueConverter.
      */
     private ValueConverter getValueConverter() {
 
@@ -482,7 +481,7 @@ public class TagDefinition implements Definition, Cloneable {
      * Check, whether the tag has an attribute defined.
      *
      * @param attributeName
-     * @return
+     * @return true or false
      */
     public boolean hasAttributeDefinition(String attributeName) {
         for (AttributeDefinition attDefinition : atts) {
@@ -504,9 +503,10 @@ public class TagDefinition implements Definition, Cloneable {
     /**
      * Get the name attribute.
      *
-     * @return
+     * @return String
      */
     public String getNameAttribute() {
         return nameAttribute;
     }
+
 }

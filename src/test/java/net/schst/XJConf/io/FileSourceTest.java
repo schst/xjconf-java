@@ -4,12 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import junit.framework.Assert;
-
 import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 
 public class FileSourceTest {
 
@@ -28,7 +26,7 @@ public class FileSourceTest {
     }
 
     @AfterClass
-    public static void tearDown() throws IOException {
+    public static void tearDown() {
         tmpInSubdir.delete();
         tmpDir.delete();
         relTempFile.delete();

@@ -12,18 +12,20 @@ import org.junit.runner.RunWith;
 public class PrimitiveValueConverterTest {
 
     @DataPoints
-    public static final Class<?>[] TYPES = {
-        Boolean.TYPE, Byte.TYPE, Character.TYPE, Short.TYPE, Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE,
-        Object.class, String.class};
+    public static final Class<?>[] TYPES = {Boolean.TYPE, Byte.TYPE, Character.TYPE, Short.TYPE, Integer.TYPE,
+            Long.TYPE, Float.TYPE, Double.TYPE, Object.class, String.class};
 
     @Theory
-    public void testConversion(Class<?> type) throws ClassNotFoundException, ValueConversionException {
+    public void testConversion(Class<?> type) throws ValueConversionException {
+        Integer obj = Integer.valueOf(1);
+
         if (type.isPrimitive()) {
-            Object value = new PrimitiveValueConverter(type.getName()).convertValue(new Object[] {1}, null, null);
+            Object value = new PrimitiveValueConverter(type.getName()).convertValue(new Object[] {obj}, null, null);
             Assert.assertNotNull("value for type " + type, value);
         } else {
-            Object value = new PrimitiveValueConverter(type.getName()).convertValue(new Object[] {1}, null, null);
+            Object value = new PrimitiveValueConverter(type.getName()).convertValue(new Object[] {obj}, null, null);
             Assert.assertNull("value for type " + type, value);
         }
     }
+
 }
