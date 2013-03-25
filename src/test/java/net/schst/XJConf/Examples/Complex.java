@@ -29,13 +29,6 @@ public class Complex {
         if (color == null) {
             return "<font color=\"" + colorString + "\" size=\"" + size.toString() + "\">" + data
                     + "</font>";
-<<<<<<< HEAD
-        } else {
-            return "<font title=\"This text is written in " + color.getName() + " (" + color.getColorTitle()
-                    + ") \" color=\"" + color.getRGB() + "\" size=\"" + size.toString() + "\">" + data
-                    + "</font>";
-=======
->>>>>>> 430a9d8b1843787a6d1e906f4f5d36aec68d680b
         }
         return "<font title=\"This text is written in " + this.color.getName() + " (" + this.color.getColorTitle()
                 + ") \" color=\"" + this.color.getRGB() + "\" size=\"" + this.size.toString() + "\">" + this.data
