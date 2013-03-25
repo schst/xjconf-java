@@ -61,7 +61,7 @@ public class ResourceSource implements Source {
         }
 
         this.location = location.normalize();
-        this.loader = resourceLoader;
+        loader = resourceLoader;
     }
 
     /**

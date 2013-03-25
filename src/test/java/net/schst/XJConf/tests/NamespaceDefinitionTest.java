@@ -28,7 +28,7 @@ public class NamespaceDefinitionTest {
                 "<defines><namespace uri=\"http://www.schst.net/\"><tag name=\"int\" type=\"int\"/></namespace></defines>";
         InputStream stream = new ByteArrayInputStream(invalidXML.getBytes());
         NamespaceDefinitions defs = defParser.parse(stream);
-        this.nsDef = defs.getNamespaceDefinition("http://www.schst.net/");
+        nsDef = defs.getNamespaceDefinition("http://www.schst.net/");
     }
 
     /*
@@ -36,7 +36,7 @@ public class NamespaceDefinitionTest {
      */
     @Test
     public void testCountTagDefinitions() {
-        Assert.assertEquals(1, this.nsDef.countTagDefinitions());
+        Assert.assertEquals(1, nsDef.countTagDefinitions());
     }
 
     /*
@@ -44,8 +44,8 @@ public class NamespaceDefinitionTest {
      */
     @Test
     public void testIsDefined() {
-        Assert.assertTrue(this.nsDef.isDefined("int"));
-        Assert.assertFalse(this.nsDef.isDefined("foo"));
+        Assert.assertTrue(nsDef.isDefined("int"));
+        Assert.assertFalse(nsDef.isDefined("foo"));
     }
 
     /*
@@ -53,7 +53,7 @@ public class NamespaceDefinitionTest {
      */
     @Test
     public void testGetDefinition() {
-        TagDefinition tagDef = this.nsDef.getDefinition("int");
+        TagDefinition tagDef = nsDef.getDefinition("int");
         Assert.assertNotNull(tagDef);
     }
 
@@ -62,7 +62,7 @@ public class NamespaceDefinitionTest {
      */
     @Test
     public void testGetNamespaceURI() {
-        Assert.assertEquals("http://www.schst.net/", this.nsDef.getNamespaceURI());
+        Assert.assertEquals("http://www.schst.net/", nsDef.getNamespaceURI());
     }
 
 }

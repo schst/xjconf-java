@@ -7,7 +7,7 @@
 
   <suppress checks="CyclomaticComplexityCheck"
             files="DefinitionParser.java"
-            lines="121, 272"/>
+            lines="121, 271"/>
   <suppress checks="CyclomaticComplexityCheck"
             files="PrimitiveValueConverter.java"
             lines="28"/>
@@ -16,6 +16,6 @@
             lines="371"/>
   <suppress checks="CyclomaticComplexityCheck"
             files="TagDefinition.java"
-            lines="335"/>
+            lines="329"/>
 
 </suppressions>

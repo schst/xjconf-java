@@ -22,6 +22,6 @@ public class XIncludeFixture {
 
         Extension xinc = new XInclude();
         reader.addExtension("http://www.w3.org/2001/XInclude", xinc);
-        this.xmlReader = reader;
+        xmlReader = reader;
     }
 }

@@ -16,8 +16,8 @@ public class FactoryMethodTest {
 
     @Before
     public void setUp() throws Exception {
-        NamespaceDefinitions defs = this.parser.parse("src/test/resources/tests/defines/FactoryMethodTestCase.xml");
-        this.xmlReader.addTagDefinitions(defs);
+        NamespaceDefinitions defs = parser.parse("src/test/resources/tests/defines/FactoryMethodTestCase.xml");
+        xmlReader.addTagDefinitions(defs);
     }
 
     /*
@@ -25,9 +25,9 @@ public class FactoryMethodTest {
      */
     @Test
     public void testFactoryMethod() throws Exception {
-        this.xmlReader.parse("src/test/resources/tests/xml/FactoryMethodTestCase-1.xml");
+        xmlReader.parse("src/test/resources/tests/xml/FactoryMethodTestCase-1.xml");
 
-        Object value = this.xmlReader.getConfigValue("foo");
+        Object value = xmlReader.getConfigValue("foo");
         Assert.assertTrue(value instanceof FactoryMethodClass);
     }
 
@@ -36,9 +36,9 @@ public class FactoryMethodTest {
      */
     @Test
     public void testFactoryMethodWithParam() throws Exception {
-        this.xmlReader.parse("src/test/resources/tests/xml/FactoryMethodTestCase-2.xml");
+        xmlReader.parse("src/test/resources/tests/xml/FactoryMethodTestCase-2.xml");
 
-        Object value = this.xmlReader.getConfigValue("bar");
+        Object value = xmlReader.getConfigValue("bar");
         Assert.assertTrue(value instanceof FactoryMethodClass);
 
         FactoryMethodClass value2 = (FactoryMethodClass) value;

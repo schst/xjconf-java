@@ -60,8 +60,8 @@ public class AttributeDefinition implements Definition {
             throw new XJConfException("TagDefinition needs a name.");
         }
         this.name = name;
-        this.type = "java.lang.String";
-        vConverter = new ObjectValueConverter(this.type);
+        type = "java.lang.String";
+        vConverter = new ObjectValueConverter(type);
     }
 
     /**
@@ -83,10 +83,10 @@ public class AttributeDefinition implements Definition {
         this.name = name;
         this.type = type;
 
-        if (this.type.indexOf(".") == -1) {
-            this.vConverter = new PrimitiveValueConverter(this.type);
+        if (!type.contains(".")) {
+            vConverter = new PrimitiveValueConverter(type);
         } else {
-            this.vConverter = new ObjectValueConverter(this.type);
+            vConverter = new ObjectValueConverter(type);
         }
     }
 
@@ -149,7 +149,7 @@ public class AttributeDefinition implements Definition {
         if (setter == null) {
             return "set" + name.substring(0, 1).toUpperCase(Locale.ENGLISH) + name.substring(1);
         }
-        return this.setter;
+        return setter;
     }
 
     /**
@@ -212,7 +212,7 @@ public class AttributeDefinition implements Definition {
 
         if (value == null) {
             if (isRequired()) {
-                throw new MissingAttributeException("The attribute '" + this.name + "' is required for the tag '"
+                throw new MissingAttributeException("The attribute '" + name + "' is required for the tag '"
                         + tag.getName() + "'.");
             }
             // it's no use to create an instance of a class passing null

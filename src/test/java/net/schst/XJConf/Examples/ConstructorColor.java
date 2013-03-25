@@ -24,22 +24,22 @@ public class ConstructorColor {
      * @return Returns the blue.
      */
     public Integer getBlue() {
-        return this.blue;
+        return blue;
     }
     /**
      * @return Returns the green.
      */
     public Integer getGreen() {
-        return this.green;
+        return green;
     }
     /**
      * @return Returns the red.
      */
     public Integer getRed() {
-        return this.red;
+        return red;
     }
 
     public String toString() {
-        return "R: " + this.getRed() + " / G: " + this.getGreen() + " / B: " + this.getBlue();
+        return "R: " + getRed() + " / G: " + getGreen() + " / B: " + getBlue();
     }
 }

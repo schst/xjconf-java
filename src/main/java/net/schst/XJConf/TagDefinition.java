@@ -54,8 +54,8 @@ public class TagDefinition implements Definition, Cloneable {
         }
 
         this.name = name;
-        this.tagName = name;
-        this.setType(type);
+        tagName = name;
+        setType(type);
     }
 
     /**
@@ -78,20 +78,16 @@ public class TagDefinition implements Definition, Cloneable {
     public void addChildDefinition(Definition def) throws Exception {
 
         if (def instanceof AttributeDefinition) {
-            this.addAttribute((AttributeDefinition) def);
-            return;
+            addAttribute((AttributeDefinition) def);
         }
-        if (def instanceof FactoryMethodDefinition) {
-            this.factoryMethod = (FactoryMethodDefinition) def;
-            return;
+        else if (def instanceof FactoryMethodDefinition) {
+            factoryMethod = (FactoryMethodDefinition) def;
         }
-        if (def instanceof ConstructorDefinition) {
-            this.constructor = (ConstructorDefinition) def;
-            return;
+        else if (def instanceof ConstructorDefinition) {
+            constructor = (ConstructorDefinition) def;
         }
-        if (def instanceof CDataDefinition) {
-            this.cdata = (CDataDefinition) def;
-            return;
+        else if (def instanceof CDataDefinition) {
+            cdata = (CDataDefinition) def;
         }
     }
 
@@ -127,8 +123,8 @@ public class TagDefinition implements Definition, Cloneable {
      * Sets the attribute that will be used as key.
      */
     public void setKeyAttribute(String att) {
-        this.name = "__attribute";
-        this.nameAttribute = att;
+        name = "__attribute";
+        nameAttribute = att;
     }
 
     /**
@@ -137,7 +133,7 @@ public class TagDefinition implements Definition, Cloneable {
      * @return   name of the value
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -146,7 +142,7 @@ public class TagDefinition implements Definition, Cloneable {
      * @return   name of the tag
      */
     public String getTagName() {
-        return this.tagName;
+        return tagName;
     }
 
     /**
@@ -155,10 +151,10 @@ public class TagDefinition implements Definition, Cloneable {
      * @return   name of the tag
      */
     public String getKey(DefinedTag tag) {
-        if (this.name.equals("__attribute")) {
-            return tag.getAttribute(this.nameAttribute);
+        if (name.equals("__attribute")) {
+            return tag.getAttribute(nameAttribute);
         }
-        return this.name;
+        return name;
     }
 
     /**
@@ -167,7 +163,7 @@ public class TagDefinition implements Definition, Cloneable {
      * @return   type of the tag
      */
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -177,7 +173,7 @@ public class TagDefinition implements Definition, Cloneable {
      */
     public Class<?> getValueType(Tag tag, ClassLoader loader) {
         try {
-            return this.getValueConverter().getType(loader);
+            return getValueConverter().getType(loader);
         } catch (Exception e) {
             throw new RuntimeException("Could not return type.");
         }
@@ -189,7 +185,7 @@ public class TagDefinition implements Definition, Cloneable {
      * @param aSetter   name of the setter method
      */
     public void setSetterMethod(String aSetter) {
-        this.setter = aSetter;
+        setter = aSetter;
     }
 
     /**
@@ -226,20 +222,20 @@ public class TagDefinition implements Definition, Cloneable {
 
         // no constructor definition has been set,
         // create a new one
-        if (this.constructor == null) {
-            this.constructor = new ConstructorDefinition();
+        if (constructor == null) {
+            constructor = new ConstructorDefinition();
             try {
-                this.constructor.addChildDefinition(new CDataDefinition());
+                constructor.addChildDefinition(new CDataDefinition());
             } catch (Exception e) {
                 throw new ValueConversionException("Could not create constructor object", e);
             }
         }
 
         ArrayList<Definition> conParams;
-        if (this.factoryMethod != null) {
-            conParams = this.factoryMethod.getParams();
+        if (factoryMethod != null) {
+            conParams = factoryMethod.getParams();
         } else {
-            conParams = this.constructor.getParams();
+            conParams = constructor.getParams();
         }
         Definition paramDef;
 
@@ -252,11 +248,11 @@ public class TagDefinition implements Definition, Cloneable {
             cParams[i] = paramDef.convertValue(tag, loader);
             cParamTypes[i] = paramDef.getValueType(tag, loader);
         }
-        Object instance = this.getValueConverter().convertValue(cParams, cParamTypes, loader);
+        Object instance = getValueConverter().convertValue(cParams, cParamTypes, loader);
 
         // add attributes and child elements
-        this.addAttributesToValue(instance, tag, loader);
-        this.addChildrenToValue(instance, tag, loader);
+        addAttributesToValue(instance, tag, loader);
+        addChildrenToValue(instance, tag, loader);
         return instance;
     }
 
@@ -274,10 +270,8 @@ public class TagDefinition implements Definition, Cloneable {
 
         // set all attributes
         String methodName = null;
-        for (int i = 0; i < this.atts.size(); i++) {
-
+        for (AttributeDefinition att : atts) {
             // get the attribute definition
-            AttributeDefinition att = this.atts.get(i);
             Object val = att.convertValue(tag, loader);
 
             // attribute has not been set and there is no
@@ -313,12 +307,12 @@ public class TagDefinition implements Definition, Cloneable {
                 Throwable t = e.getTargetException();
                 if (t instanceof Exception) {
                     throw new ValueConversionException("Could not set attribute '" + att.getName() + "' of '"
-                            + this.type + "'.", (Exception) t);
+                            + type + "'.", (Exception) t);
                 }
                 throw new RuntimeException("Could not set attribute '" + att.getName() + "' of '" + this.type
                         + "'.", t);
             } catch (Exception e) {
-                throw new ValueConversionException("Could not set attribute '" + att.getName() + "' of '" + this.type
+                throw new ValueConversionException("Could not set attribute '" + att.getName() + "' of '" + type
                         + "'.", e);
             }
         }
@@ -335,7 +329,7 @@ public class TagDefinition implements Definition, Cloneable {
     @SuppressWarnings("unchecked")
     private void addChildrenToValue(Object instance, Tag tag, ClassLoader loader) throws ValueConversionException {
 
-        ArrayList<String> ignore = this.constructor.getUsedChildrenNames();
+        ArrayList<String> ignore = constructor.getUsedChildrenNames();
 
         String methodName;
         Class<?> cl = instance.getClass();
@@ -396,16 +390,16 @@ public class TagDefinition implements Definition, Cloneable {
                     }
                     if (childMethod == null) {
                         throw new ValueConversionException("Could not add child " + child.getKey() + " to "
-                                + this.getType() + " using " + methodName + "() because this method does not exist.");
+                                + getType() + " using " + methodName + "() because this method does not exist.");
                     } else if (Modifier.toString(childMethod.getModifiers()).contains("private")) {
                         throw new ValueConversionException("Could not add child " + child.getKey() + " to "
-                                + this.getType() + " using " + methodName + "() because this method is private.");
+                                + getType() + " using " + methodName + "() because this method is private.");
                     }
                     Object[] childParams = {childValue};
                     childMethod.invoke(instance, childParams);
                 }
             } catch (Exception e) {
-                throw new ValueConversionException("Could not add child " + child.getKey() + " to " + this.getType()
+                throw new ValueConversionException("Could not add child " + child.getKey() + " to " + getType()
                         + " using " + methodName + "(), exception message: " + e.getMessage() + ".", e);
             }
         }
@@ -418,10 +412,7 @@ public class TagDefinition implements Definition, Cloneable {
      */
     public boolean supportsIndexedChildren() {
         //TODO Find a better (and working) way to do this check.
-        if (type.equals("java.util.ArrayList")) {
-            return true;
-        }
-        return false;
+        return type.equals("java.util.ArrayList");
     }
 
     /**
@@ -435,12 +426,12 @@ public class TagDefinition implements Definition, Cloneable {
         Class<?>[] subinterfaces = superClass.getInterfaces();
         for (Class<?> inter : subinterfaces) {
             result.add(inter);
-            this.determineAllInterfaces(result, inter);
+            determineAllInterfaces(result, inter);
         }
         Class<?> subclass = superClass.getSuperclass();
         if (subclass != null) {
             result.add(subclass);
-            this.determineAllInterfaces(result, subclass);
+            determineAllInterfaces(result, subclass);
         }
         return result;
     }
@@ -458,7 +449,7 @@ public class TagDefinition implements Definition, Cloneable {
         TagDefinition copy;
         try {
             copy = (TagDefinition) super.clone();
-            copy.atts = (ArrayList<AttributeDefinition>) this.atts.clone();
+            copy.atts = (ArrayList<AttributeDefinition>) atts.clone();
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException("Could not extend a tag definition.", e);
         }
@@ -472,18 +463,18 @@ public class TagDefinition implements Definition, Cloneable {
      */
     private ValueConverter getValueConverter() {
 
-        if (this.valueConverter == null) {
-            if (this.type.indexOf(".") == -1) {
-                this.valueConverter = new PrimitiveValueConverter(this.type);
+        if (valueConverter == null) {
+            if (!type.contains(".")) {
+                valueConverter = new PrimitiveValueConverter(type);
             } else {
-                if (this.factoryMethod != null) {
-                    this.valueConverter = new FactoryMethodValueConverter(this.type, this.factoryMethod.getName());
+                if (factoryMethod != null) {
+                    valueConverter = new FactoryMethodValueConverter(type, factoryMethod.getName());
                 } else {
-                    this.valueConverter = new ObjectValueConverter(this.type);
+                    valueConverter = new ObjectValueConverter(type);
                 }
             }
         }
-        return this.valueConverter;
+        return valueConverter;
     }
 
     /**
@@ -493,7 +484,7 @@ public class TagDefinition implements Definition, Cloneable {
      * @return true or false
      */
     public boolean hasAttributeDefinition(String attributeName) {
-        for (AttributeDefinition attDefinition : this.atts) {
+        for (AttributeDefinition attDefinition : atts) {
             if (attDefinition.getName().equals(attributeName)) {
                 return true;
             }
@@ -515,7 +506,7 @@ public class TagDefinition implements Definition, Cloneable {
      * @return String
      */
     public String getNameAttribute() {
-        return this.nameAttribute;
+        return nameAttribute;
     }
 
 }

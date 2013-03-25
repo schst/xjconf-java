@@ -24,33 +24,33 @@ public class Color {
     }
 
     public void setRed(Integer val) {
-        this.red = val;
+        red = val;
     }
     public void setGreen(Integer val) {
-        this.green = val;
+        green = val;
     }
     public void setBlue(Integer val) {
-        this.blue = val;
+        blue = val;
     }
 
     public void setColorTitle(String title) {
-        this.colorTitle = title;
+        colorTitle = title;
     }
 
     public String getRGB() {
-        return "#" + Integer.toHexString(this.red.intValue()) + Integer.toHexString(this.green.intValue())
-                + Integer.toHexString(this.blue.intValue());
+        return "#" + Integer.toHexString(red.intValue()) + Integer.toHexString(green.intValue())
+                + Integer.toHexString(blue.intValue());
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String getColorTitle() {
-        return this.colorTitle;
+        return colorTitle;
     }
 
     public String toString() {
-        return this.name + "(" + this.getRGB() + ")";
+        return name + "(" + getRGB() + ")";
     }
 }

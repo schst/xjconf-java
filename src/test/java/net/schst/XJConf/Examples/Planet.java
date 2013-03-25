@@ -23,7 +23,7 @@ public enum Planet {
     }
 
     public int getMoonNumber() {
-        return this.moonNumber;
+        return moonNumber;
     }
 
     public double surfaceGravity() {
